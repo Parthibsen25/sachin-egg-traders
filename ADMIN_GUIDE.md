@@ -31,6 +31,33 @@
 ✅ **No backend server needed** - Works on any computer that opens the admin page
 ✅ **Updates appear automatically** on the main website within 30 seconds
 
+## Google Sheets (Cross-device) — Optional
+
+If you want prices to update across devices automatically, publish a Google Sheet and point the site to the published CSV.
+
+Steps:
+1. Create a Google Sheet with columns: `type,price,trend,trendText,updateDate` (header row).
+   - Use `type` values: `big`, `medium`, `small`, `desi`, `duck`.
+2. Fill rows with your values, e.g.:
+   ```csv
+   type,price,trend,trendText,updateDate
+   big,1100,stable,Stable,May 10, 2026
+   medium,1000,stable,Stable,May 10, 2026
+   small,900,stable,Stable,May 10, 2026
+   desi,1200,stable,Stable,May 10, 2026
+   duck,1500,stable,Stable,May 10, 2026
+   ```
+3. In Google Sheets: `File` → `Share` → `Publish to web` → choose `Comma-separated values (.csv)` and publish the sheet.
+4. Copy the published CSV URL.
+5. Open `prices.js` and set `SHEET_CSV_URL` to that URL (paste between the quotes).
+
+Behavior:
+- When `SHEET_CSV_URL` is set, the website will attempt to fetch prices from the sheet first.
+- If the sheet is unavailable, it falls back to `localStorage` or defaults.
+- This is a one-way sync (Sheet → Website). To update sheet, edit the Google Sheet directly.
+
+Security note: Published CSV is public — do not include sensitive info.
+
 ## How to Change the Password
 
 **IMPORTANT:** Change the default password immediately!

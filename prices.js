@@ -1,11 +1,58 @@
-// Load prices from localStorage and update the price ticker
-function loadPriceTicker() {
-  const stored = localStorage.getItem('eggPrices');
-  let prices;
+// Load prices from localStorage, optionally from a published Google Sheet (CSV), and update the price ticker
+// To enable Google Sheets syncing: publish your sheet to the web (CSV) and set SHEET_CSV_URL to that URL.
+const SHEET_CSV_URL = ''; // <-- Paste your published CSV URL here to enable cross-device updates
 
-  if (stored) {
-    prices = JSON.parse(stored);
+function parseCsvToPrices(csvText) {
+  const lines = csvText.trim().split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+  if (lines.length < 2) return null;
+  const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
+  const rows = lines.slice(1).map(r => r.split(',').map(c => c.trim()));
+  const prices = { big: {}, medium: {}, small: {}, desi: {}, duck: {}, updateDate: '' };
+
+  rows.forEach(cols => {
+    const obj = {};
+    headers.forEach((h, i) => obj[h] = (cols[i] || '').trim());
+    const type = (obj.type || '').toLowerCase();
+    if (type && prices[type] !== undefined) {
+      prices[type] = {
+        price: obj.price || prices[type].price || '0',
+        trend: (obj.trend || 'stable').toLowerCase(),
+        trendText: obj.trendtext || obj.trend_text || (obj.details || '')
+      };
+    }
+    if (obj.updatedate || obj.update_date || obj.date) {
+      prices.updateDate = obj.updatedate || obj.update_date || obj.date;
+    }
+  });
+  return prices;
+}
+
+async function fetchSheetPrices() {
+  if (!SHEET_CSV_URL) return null;
+  try {
+    const res = await fetch(SHEET_CSV_URL, { cache: 'no-store' });
+    if (!res.ok) return null;
+    const text = await res.text();
+    const parsed = parseCsvToPrices(text);
+    return parsed;
+  } catch (e) {
+    console.warn('Failed to fetch sheet CSV', e);
+    return null;
+  }
+}
+
+async function loadPriceTicker() {
+  // Try Google Sheet first (if configured)
+  const sheetPrices = await fetchSheetPrices();
+  let prices;
+  if (sheetPrices) {
+    prices = sheetPrices;
   } else {
+    const stored = localStorage.getItem('eggPrices');
+    if (stored) prices = JSON.parse(stored);
+  }
+
+  if (!prices) {
     // DEFAULT PRICES (1 Peti = 210 Pieces)
     prices = {
       big: { price: '1100', trend: 'stable', trendText: 'Stable' },
@@ -17,65 +64,26 @@ function loadPriceTicker() {
     };
   }
 
-  // UPDATE BIG EGGS
-  const bigPriceEl = document.querySelector('[data-price-type="big"] .price-value');
-  const bigTrendEl = document.querySelector('[data-price-type="big"] .price-trend');
-  if (bigPriceEl) bigPriceEl.textContent = '₹ ' + prices.big.price;
-  if (bigTrendEl) {
-    const trendClass = 'trend-' + prices.big.trend;
-    bigTrendEl.className = 'price-trend ' + trendClass;
-    const symbol = prices.big.trend === 'up' ? '↑' : prices.big.trend === 'down' ? '↓' : '→';
-    bigTrendEl.textContent = symbol + ' ' + prices.big.trendText;
+  // Helper to update a type
+  function applyType(type) {
+    const priceEl = document.querySelector(`[data-price-type="${type}"] .price-value`);
+    const trendEl = document.querySelector(`[data-price-type="${type}"] .price-trend`);
+    if (!prices[type]) return;
+    if (priceEl) priceEl.textContent = '₹ ' + prices[type].price;
+    if (trendEl) {
+      const trendClass = 'trend-' + (prices[type].trend || 'stable');
+      trendEl.className = 'price-trend ' + trendClass;
+      const symbol = prices[type].trend === 'up' ? '↑' : prices[type].trend === 'down' ? '↓' : '→';
+      trendEl.textContent = symbol + ' ' + (prices[type].trendText || '');
+    }
   }
 
-  // UPDATE MEDIUM EGGS
-  const mediumPriceEl = document.querySelector('[data-price-type="medium"] .price-value');
-  const mediumTrendEl = document.querySelector('[data-price-type="medium"] .price-trend');
-  if (mediumPriceEl) mediumPriceEl.textContent = '₹ ' + prices.medium.price;
-  if (mediumTrendEl) {
-    const trendClass = 'trend-' + prices.medium.trend;
-    mediumTrendEl.className = 'price-trend ' + trendClass;
-    const symbol = prices.medium.trend === 'up' ? '↑' : prices.medium.trend === 'down' ? '↓' : '→';
-    mediumTrendEl.textContent = symbol + ' ' + prices.medium.trendText;
-  }
-
-  // UPDATE SMALL EGGS
-  const smallPriceEl = document.querySelector('[data-price-type="small"] .price-value');
-  const smallTrendEl = document.querySelector('[data-price-type="small"] .price-trend');
-  if (smallPriceEl) smallPriceEl.textContent = '₹ ' + prices.small.price;
-  if (smallTrendEl) {
-    const trendClass = 'trend-' + prices.small.trend;
-    smallTrendEl.className = 'price-trend ' + trendClass;
-    const symbol = prices.small.trend === 'up' ? '↑' : prices.small.trend === 'down' ? '↓' : '→';
-    smallTrendEl.textContent = symbol + ' ' + prices.small.trendText;
-  }
-
-  // UPDATE DESI EGGS
-  const desiPriceEl = document.querySelector('[data-price-type="desi"] .price-value');
-  const desiTrendEl = document.querySelector('[data-price-type="desi"] .price-trend');
-  if (desiPriceEl) desiPriceEl.textContent = '₹ ' + prices.desi.price;
-  if (desiTrendEl) {
-    const trendClass = 'trend-' + prices.desi.trend;
-    desiTrendEl.className = 'price-trend ' + trendClass;
-    const symbol = prices.desi.trend === 'up' ? '↑' : prices.desi.trend === 'down' ? '↓' : '→';
-    desiTrendEl.textContent = symbol + ' ' + prices.desi.trendText;
-  }
-
-  // UPDATE DUCK EGGS
-  const duckPriceEl = document.querySelector('[data-price-type="duck"] .price-value');
-  const duckTrendEl = document.querySelector('[data-price-type="duck"] .price-trend');
-  if (duckPriceEl) duckPriceEl.textContent = '₹ ' + prices.duck.price;
-  if (duckTrendEl) {
-    const trendClass = 'trend-' + prices.duck.trend;
-    duckTrendEl.className = 'price-trend ' + trendClass;
-    const symbol = prices.duck.trend === 'up' ? '↑' : prices.duck.trend === 'down' ? '↓' : '→';
-    duckTrendEl.textContent = symbol + ' ' + prices.duck.trendText;
-  }
+  ['big','medium','small','desi','duck'].forEach(applyType);
 
   // UPDATE DATE
   const updateDateEl = document.querySelector('.ticker-update');
   if (updateDateEl) {
-    updateDateEl.textContent = 'Last updated: ' + prices.updateDate + ' • 1 Peti = 210 Pieces';
+    updateDateEl.textContent = 'Last updated: ' + (prices.updateDate || 'Today') + ' • 1 Peti = 210 Pieces';
   }
 }
 

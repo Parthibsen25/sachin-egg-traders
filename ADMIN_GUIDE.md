@@ -17,12 +17,8 @@
 
    **Note: 1 Peti = 210 Pieces**
 
-2. **Select the trend**:
-   - ↑ **Up** - Price increased
-   - → **Stable** - No change
-   - ↓ **Down** - Price decreased
-3. **Add trend details** (e.g., "+₹50", "-₹30", "Stable")
-4. **Update the date** (e.g., "May 11, 2026")
+2. **Update the date** (e.g., "May 11, 2026")
+3. Click **"💾 Save Prices"** — Updates will appear on website within 30 seconds
 5. Click **"💾 Save Prices"** — Updates will appear on website within 30 seconds
 
 ## Where Data is Stored
@@ -36,16 +32,16 @@
 If you want prices to update across devices automatically, publish a Google Sheet and point the site to the published CSV.
 
 Steps:
-1. Create a Google Sheet with columns: `type,price,trend,trendText,updateDate` (header row).
+1. Create a Google Sheet with columns: `type,price,updateDate` (header row).
    - Use `type` values: `big`, `medium`, `small`, `desi`, `duck`.
 2. Fill rows with your values, e.g.:
    ```csv
-   type,price,trend,trendText,updateDate
-   big,1100,stable,Stable,May 10, 2026
-   medium,1000,stable,Stable,May 10, 2026
-   small,900,stable,Stable,May 10, 2026
-   desi,1200,stable,Stable,May 10, 2026
-   duck,1500,stable,Stable,May 10, 2026
+   type,price,updateDate
+   big,1100,May 10, 2026
+   medium,1000,May 10, 2026
+   small,900,May 10, 2026
+   desi,1200,May 10, 2026
+   duck,1500,May 10, 2026
    ```
 3. In Google Sheets: `File` → `Share` → `Publish to web` → choose `Comma-separated values (.csv)` and publish the sheet.
 4. Copy the published CSV URL.

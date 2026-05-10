@@ -15,9 +15,7 @@ function parseCsvToPrices(csvText) {
     const type = (obj.type || '').toLowerCase();
     if (type && prices[type] !== undefined) {
       prices[type] = {
-        price: obj.price || prices[type].price || '0',
-        trend: (obj.trend || 'stable').toLowerCase(),
-        trendText: obj.trendtext || obj.trend_text || (obj.details || '')
+        price: obj.price || prices[type].price || '0'
       };
     }
     if (obj.updatedate || obj.update_date || obj.date) {
@@ -55,27 +53,20 @@ async function loadPriceTicker() {
   if (!prices) {
     // DEFAULT PRICES (1 Peti = 210 Pieces)
     prices = {
-      big: { price: '1100', trend: 'stable', trendText: 'Stable' },
-      medium: { price: '1000', trend: 'stable', trendText: 'Stable' },
-      small: { price: '900', trend: 'stable', trendText: 'Stable' },
-      desi: { price: '1200', trend: 'stable', trendText: 'Stable' },
-      duck: { price: '1500', trend: 'stable', trendText: 'Stable' },
+      big: { price: '1100' },
+      medium: { price: '1000' },
+      small: { price: '900' },
+      desi: { price: '1200' },
+      duck: { price: '1500' },
       updateDate: 'May 10, 2026'
     };
   }
 
-  // Helper to update a type
+  // Helper to update a type (only price)
   function applyType(type) {
     const priceEl = document.querySelector(`[data-price-type="${type}"] .price-value`);
-    const trendEl = document.querySelector(`[data-price-type="${type}"] .price-trend`);
     if (!prices[type]) return;
     if (priceEl) priceEl.textContent = '₹ ' + prices[type].price;
-    if (trendEl) {
-      const trendClass = 'trend-' + (prices[type].trend || 'stable');
-      trendEl.className = 'price-trend ' + trendClass;
-      const symbol = prices[type].trend === 'up' ? '↑' : prices[type].trend === 'down' ? '↓' : '→';
-      trendEl.textContent = symbol + ' ' + (prices[type].trendText || '');
-    }
   }
 
   ['big','medium','small','desi','duck'].forEach(applyType);

@@ -371,18 +371,7 @@
               <label for="bigPrice">Big Egg Price (₹ per peti)</label>
               <input type="number" id="bigPrice" min="0" step="1" placeholder="e.g., 1100" />
             </div>
-            <div class="form-group">
-              <label for="bigTrend">Big Egg Trend</label>
-              <select id="bigTrend">
-                <option value="up">↑ Up</option>
-                <option value="stable">→ Stable</option>
-                <option value="down">↓ Down</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="bigTrendText">Trend Details</label>
-              <input type="text" id="bigTrendText" placeholder="e.g., +₹50" />
-            </div>
+            <!-- trend removed -->
           </div>
 
           <!-- MEDIUM EGG -->
@@ -391,18 +380,7 @@
               <label for="mediumPrice">Medium Egg Price (₹ per peti)</label>
               <input type="number" id="mediumPrice" min="0" step="1" placeholder="e.g., 1000" />
             </div>
-            <div class="form-group">
-              <label for="mediumTrend">Medium Egg Trend</label>
-              <select id="mediumTrend">
-                <option value="up">↑ Up</option>
-                <option value="stable">→ Stable</option>
-                <option value="down">↓ Down</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="mediumTrendText">Trend Details</label>
-              <input type="text" id="mediumTrendText" placeholder="e.g., Stable" />
-            </div>
+            <!-- trend removed -->
           </div>
 
           <!-- SMALL EGG -->
@@ -411,18 +389,7 @@
               <label for="smallPrice">Small Egg Price (₹ per peti)</label>
               <input type="number" id="smallPrice" min="0" step="1" placeholder="e.g., 900" />
             </div>
-            <div class="form-group">
-              <label for="smallTrend">Small Egg Trend</label>
-              <select id="smallTrend">
-                <option value="up">↑ Up</option>
-                <option value="stable">→ Stable</option>
-                <option value="down">↓ Down</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="smallTrendText">Trend Details</label>
-              <input type="text" id="smallTrendText" placeholder="e.g., -₹30" />
-            </div>
+            <!-- trend removed -->
           </div>
 
           <!-- DESI EGG -->
@@ -431,18 +398,7 @@
               <label for="desiPrice">Desi Egg Price (₹ per peti)</label>
               <input type="number" id="desiPrice" min="0" step="1" placeholder="e.g., 1200" />
             </div>
-            <div class="form-group">
-              <label for="desiTrend">Desi Egg Trend</label>
-              <select id="desiTrend">
-                <option value="up">↑ Up</option>
-                <option value="stable">→ Stable</option>
-                <option value="down">↓ Down</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="desiTrendText">Trend Details</label>
-              <input type="text" id="desiTrendText" placeholder="e.g., Stable" />
-            </div>
+            <!-- trend removed -->
           </div>
 
           <!-- DUCK EGG -->
@@ -451,18 +407,7 @@
               <label for="duckPrice">Duck Egg Price (₹ per peti)</label>
               <input type="number" id="duckPrice" min="0" step="1" placeholder="e.g., 1500" />
             </div>
-            <div class="form-group">
-              <label for="duckTrend">Duck Egg Trend</label>
-              <select id="duckTrend">
-                <option value="up">↑ Up</option>
-                <option value="stable">→ Stable</option>
-                <option value="down">↓ Down</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="duckTrendText">Trend Details</label>
-              <input type="text" id="duckTrendText" placeholder="e.g., +₹100" />
-            </div>
+            <!-- trend removed -->
           </div>
           <!-- UPDATE DATE -->
           <div class="update-date-group">
@@ -486,27 +431,22 @@
           <div class="preview-item">
             <div class="preview-type" id="previewBigType">Big Egg</div>
             <div class="preview-price" id="previewBigPrice">₹ 1100</div>
-            <div class="preview-trend" id="previewBigTrend">→ Stable</div>
           </div>
           <div class="preview-item">
             <div class="preview-type" id="previewMediumType">Medium Egg</div>
             <div class="preview-price" id="previewMediumPrice">₹ 1000</div>
-            <div class="preview-trend" id="previewMediumTrend">→ Stable</div>
           </div>
           <div class="preview-item">
             <div class="preview-type" id="previewSmallType">Small Egg</div>
             <div class="preview-price" id="previewSmallPrice">₹ 900</div>
-            <div class="preview-trend" id="previewSmallTrend">→ Stable</div>
           </div>
           <div class="preview-item">
             <div class="preview-type" id="previewDesiType">Desi Egg</div>
             <div class="preview-price" id="previewDesiPrice">₹ 1200</div>
-            <div class="preview-trend" id="previewDesiTrend">→ Stable</div>
           </div>
           <div class="preview-item">
             <div class="preview-type" id="previewDuckType">Duck Egg</div>
             <div class="preview-price" id="previewDuckPrice">₹ 1500</div>
-            <div class="preview-trend" id="previewDuckTrend">→ Stable</div>
           </div>
         </div>
         <div style="text-align: center; margin-top: 20px; font-size: 0.9rem; opacity: 0.9;">
@@ -571,25 +511,10 @@
       const prices = getPricesFromStorage();
       
       document.getElementById('bigPrice').value = prices.big.price;
-      document.getElementById('bigTrend').value = prices.big.trend;
-      document.getElementById('bigTrendText').value = prices.big.trendText;
-      
       document.getElementById('mediumPrice').value = prices.medium.price;
-      document.getElementById('mediumTrend').value = prices.medium.trend;
-      document.getElementById('mediumTrendText').value = prices.medium.trendText;
-      
       document.getElementById('smallPrice').value = prices.small.price;
-      document.getElementById('smallTrend').value = prices.small.trend;
-      document.getElementById('smallTrendText').value = prices.small.trendText;
-      
       document.getElementById('desiPrice').value = prices.desi.price;
-      document.getElementById('desiTrend').value = prices.desi.trend;
-      document.getElementById('desiTrendText').value = prices.desi.trendText;
-      
       document.getElementById('duckPrice').value = prices.duck.price;
-      document.getElementById('duckTrend').value = prices.duck.trend;
-      document.getElementById('duckTrendText').value = prices.duck.trendText;
-      
       document.getElementById('updateDate').value = prices.updateDate;
       
       updatePreview();
@@ -604,11 +529,11 @@
       
       // DEFAULT PRICES (1 Peti = 210 Pieces)
       return {
-        big: { price: '1100', trend: 'stable', trendText: 'Stable' },
-        medium: { price: '1000', trend: 'stable', trendText: 'Stable' },
-        small: { price: '900', trend: 'stable', trendText: 'Stable' },
-        desi: { price: '1200', trend: 'stable', trendText: 'Stable' },
-        duck: { price: '1500', trend: 'stable', trendText: 'Stable' },
+        big: { price: '1100' },
+        medium: { price: '1000' },
+        small: { price: '900' },
+        desi: { price: '1200' },
+        duck: { price: '1500' },
         updateDate: 'May 10, 2026'
       };
     }
@@ -616,31 +541,11 @@
     // SAVE PRICES TO STORAGE
     function savePrices() {
       const prices = {
-        big: {
-          price: document.getElementById('bigPrice').value || '0',
-          trend: document.getElementById('bigTrend').value,
-          trendText: document.getElementById('bigTrendText').value
-        },
-        medium: {
-          price: document.getElementById('mediumPrice').value || '0',
-          trend: document.getElementById('mediumTrend').value,
-          trendText: document.getElementById('mediumTrendText').value
-        },
-        small: {
-          price: document.getElementById('smallPrice').value || '0',
-          trend: document.getElementById('smallTrend').value,
-          trendText: document.getElementById('smallTrendText').value
-        },
-        desi: {
-          price: document.getElementById('desiPrice').value || '0',
-          trend: document.getElementById('desiTrend').value,
-          trendText: document.getElementById('desiTrendText').value
-        },
-        duck: {
-          price: document.getElementById('duckPrice').value || '0',
-          trend: document.getElementById('duckTrend').value,
-          trendText: document.getElementById('duckTrendText').value
-        },
+        big: { price: document.getElementById('bigPrice').value || '0' },
+        medium: { price: document.getElementById('mediumPrice').value || '0' },
+        small: { price: document.getElementById('smallPrice').value || '0' },
+        desi: { price: document.getElementById('desiPrice').value || '0' },
+        duck: { price: document.getElementById('duckPrice').value || '0' },
         updateDate: document.getElementById('updateDate').value || 'Today'
       };
 
@@ -659,32 +564,11 @@
     function updatePreview() {
       const prices = getPricesFromStorage();
       
-      // BIG EGG
       document.getElementById('previewBigPrice').textContent = '₹ ' + prices.big.price;
-      const bigSymbol = prices.big.trend === 'up' ? '↑' : prices.big.trend === 'down' ? '↓' : '→';
-      document.getElementById('previewBigTrend').textContent = bigSymbol + ' ' + prices.big.trendText;
-      
-      // MEDIUM EGG
       document.getElementById('previewMediumPrice').textContent = '₹ ' + prices.medium.price;
-      const mediumSymbol = prices.medium.trend === 'up' ? '↑' : prices.medium.trend === 'down' ? '↓' : '→';
-      document.getElementById('previewMediumTrend').textContent = mediumSymbol + ' ' + prices.medium.trendText;
-      
-      // SMALL EGG
       document.getElementById('previewSmallPrice').textContent = '₹ ' + prices.small.price;
-      const smallSymbol = prices.small.trend === 'up' ? '↑' : prices.small.trend === 'down' ? '↓' : '→';
-      document.getElementById('previewSmallTrend').textContent = smallSymbol + ' ' + prices.small.trendText;
-      
-      // DESI EGG
       document.getElementById('previewDesiPrice').textContent = '₹ ' + prices.desi.price;
-      const desiSymbol = prices.desi.trend === 'up' ? '↑' : prices.desi.trend === 'down' ? '↓' : '→';
-      document.getElementById('previewDesiTrend').textContent = desiSymbol + ' ' + prices.desi.trendText;
-      
-      // DUCK EGG
       document.getElementById('previewDuckPrice').textContent = '₹ ' + prices.duck.price;
-      const duckSymbol = prices.duck.trend === 'up' ? '↑' : prices.duck.trend === 'down' ? '↓' : '→';
-      document.getElementById('previewDuckTrend').textContent = duckSymbol + ' ' + prices.duck.trendText;
-      
-      // DATE
       document.getElementById('previewDate').textContent = prices.updateDate;
     }
 
@@ -710,20 +594,10 @@
 
     // LIVE PREVIEW UPDATE
     document.getElementById('bigPrice')?.addEventListener('input', updatePreview);
-    document.getElementById('bigTrend')?.addEventListener('change', updatePreview);
-    document.getElementById('bigTrendText')?.addEventListener('input', updatePreview);
     document.getElementById('mediumPrice')?.addEventListener('input', updatePreview);
-    document.getElementById('mediumTrend')?.addEventListener('change', updatePreview);
-    document.getElementById('mediumTrendText')?.addEventListener('input', updatePreview);
     document.getElementById('smallPrice')?.addEventListener('input', updatePreview);
-    document.getElementById('smallTrend')?.addEventListener('change', updatePreview);
-    document.getElementById('smallTrendText')?.addEventListener('input', updatePreview);
     document.getElementById('desiPrice')?.addEventListener('input', updatePreview);
-    document.getElementById('desiTrend')?.addEventListener('change', updatePreview);
-    document.getElementById('desiTrendText')?.addEventListener('input', updatePreview);
     document.getElementById('duckPrice')?.addEventListener('input', updatePreview);
-    document.getElementById('duckTrend')?.addEventListener('change', updatePreview);
-    document.getElementById('duckTrendText')?.addEventListener('input', updatePreview);
     document.getElementById('updateDate')?.addEventListener('input', updatePreview);
   </script>
 </body>

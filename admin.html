@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sachin Egg Traders | Admin Panel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    
+    :root {
+      --yolk: #E8920A;
+      --green: #2A7A48;
+      --ink: #18120A;
+      --muted: #7A6040;
+      --cream: #FDFAF4;
+      --shell: #EDE2CC;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding-top: 20px;
+    }
+
+    .header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      color: var(--ink);
+    }
+
+    .header p {
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .login-section {
+      background: #fff;
+      border: 2px solid var(--shell);
+      border-radius: 20px;
+      padding: 40px;
+      margin-bottom: 30px;
+      text-align: center;
+      display: none;
+    }
+
+    .login-section.show {
+      display: block;
+    }
+
+    .login-section h2 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+
+    .login-input {
+      width: 100%;
+      max-width: 300px;
+      padding: 12px 16px;
+      border: 2px solid var(--shell);
+      border-radius: 10px;
+      font-size: 1rem;
+      margin-bottom: 16px;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .login-input:focus {
+      outline: none;
+      border-color: var(--yolk);
+      box-shadow: 0 0 0 3px rgba(232, 146, 10, 0.1);
+    }
+
+    .login-btn {
+      background: var(--green);
+      color: #fff;
+      padding: 12px 32px;
+      border: none;
+      border-radius: 100px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+
+    .login-btn:hover {
+      background: #1f5c36;
+    }
+
+    .main-panel {
+      display: none;
+    }
+
+    .main-panel.show {
+      display: block;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid var(--shell);
+    }
+
+    .panel-header h2 {
+      font-size: 1.5rem;
+    }
+
+    .logout-btn {
+      background: #FF6B6B;
+      color: #fff;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 100px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .logout-btn:hover {
+      background: #E63946;
+    }
+
+    .form-section {
+      background: #fff;
+      border: 2px solid var(--shell);
+      border-radius: 20px;
+      padding: 40px;
+      margin-bottom: 30px;
+    }
+
+    .form-section h3 {
+      font-size: 1.3rem;
+      margin-bottom: 30px;
+      color: var(--green);
+    }
+
+    .price-form {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--ink);
+    }
+
+    .form-group input,
+    .form-group select {
+      padding: 12px 16px;
+      border: 2px solid var(--shell);
+      border-radius: 10px;
+      font-size: 1rem;
+      font-family: 'Outfit', sans-serif;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--yolk);
+      box-shadow: 0 0 0 3px rgba(232, 146, 10, 0.1);
+    }
+
+    .form-group input[type="number"] {
+      font-size: 1.2rem;
+    }
+
+    .update-date-group {
+      grid-column: 1 / -1;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .save-btn {
+      background: var(--green);
+      color: #fff;
+      padding: 14px 32px;
+      border: none;
+      border-radius: 100px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .save-btn:hover {
+      background: #1f5c36;
+      transform: translateY(-2px);
+    }
+
+    .save-btn:active {
+      transform: translateY(0);
+    }
+
+    .reset-btn {
+      background: var(--muted);
+      color: #fff;
+      padding: 14px 32px;
+      border: none;
+      border-radius: 100px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background 0.2s;
+    }
+
+    .reset-btn:hover {
+      background: #654321;
+    }
+
+    .preview-section {
+      background: linear-gradient(135deg, #2A7A48 0%, #1f5c36 100%);
+      border-radius: 20px;
+      padding: 30px;
+      color: #fff;
+    }
+
+    .preview-section h3 {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      color: #FBB830;
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 16px;
+    }
+
+    .preview-item {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .preview-type {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      margin-bottom: 8px;
+    }
+
+    .preview-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #FBB830;
+      margin-bottom: 6px;
+    }
+
+    .preview-trend {
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .message {
+      padding: 12px 16px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      text-align: center;
+      font-weight: 600;
+      display: none;
+    }
+
+    .message.show {
+      display: block;
+    }
+
+    .message.success {
+      background: #4ECDC4;
+      color: #fff;
+    }
+
+    .message.error {
+      background: #FF6B6B;
+      color: #fff;
+    }
+
+    .error-text {
+      color: #FF6B6B;
+      font-size: 0.85rem;
+      margin-top: 4px;
+    }
+
+    @media (max-width: 640px) {
+      .header h1 {
+        font-size: 1.8rem;
+      }
+
+      .form-section {
+        padding: 20px;
+      }
+
+      .price-form {
+        grid-template-columns: 1fr;
+      }
+
+      .button-group {
+        flex-direction: column;
+      }
+
+      .save-btn,
+      .reset-btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🥚 Admin Panel</h1>
+      <p>Sachin Egg Traders - Update Daily Prices</p>
+    </div>
+
+    <!-- LOGIN SECTION -->
+    <div class="login-section show" id="loginSection">
+      <h2>Enter Password</h2>
+      <input type="password" id="passwordInput" class="login-input" placeholder="Enter admin password" />
+      <div class="error-text" id="passwordError"></div>
+      <button class="login-btn" onclick="checkPassword()">Login</button>
+    </div>
+
+    <!-- MAIN PANEL -->
+    <div class="main-panel" id="mainPanel">
+      <div class="panel-header">
+        <h2>Price Manager</h2>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+      </div>
+
+      <div id="successMessage" class="message success"></div>
+      <div id="errorMessage" class="message error"></div>
+
+      <!-- PRICE UPDATE FORM -->
+      <div class="form-section">
+        <h3>Update Prices</h3>
+        <div class="price-form">
+          <!-- WHITE EGGS -->
+          <div>
+            <div class="form-group">
+              <label for="whitePrice">White Eggs Price (₹)</label>
+              <input type="number" id="whitePrice" min="0" step="1" placeholder="e.g., 420" />
+            </div>
+            <div class="form-group">
+              <label for="whiteTrend">White Eggs Trend</label>
+              <select id="whiteTrend">
+                <option value="up">↑ Up</option>
+                <option value="stable">→ Stable</option>
+                <option value="down">↓ Down</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="whiteTrendText">Trend Details (e.g., +₹5 per dozen)</label>
+              <input type="text" id="whiteTrendText" placeholder="e.g., +₹5 per dozen" />
+            </div>
+          </div>
+
+          <!-- BROWN EGGS -->
+          <div>
+            <div class="form-group">
+              <label for="brownPrice">Brown Eggs Price (₹)</label>
+              <input type="number" id="brownPrice" min="0" step="1" placeholder="e.g., 450" />
+            </div>
+            <div class="form-group">
+              <label for="brownTrend">Brown Eggs Trend</label>
+              <select id="brownTrend">
+                <option value="up">↑ Up</option>
+                <option value="stable">→ Stable</option>
+                <option value="down">↓ Down</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="brownTrendText">Trend Details (e.g., -₹3 per dozen)</label>
+              <input type="text" id="brownTrendText" placeholder="e.g., -₹3 per dozen" />
+            </div>
+          </div>
+
+          <!-- DESI EGGS -->
+          <div>
+            <div class="form-group">
+              <label for="desiPrice">Desi Eggs Price (₹)</label>
+              <input type="number" id="desiPrice" min="0" step="1" placeholder="e.g., 520" />
+            </div>
+            <div class="form-group">
+              <label for="desiTrend">Desi Eggs Trend</label>
+              <select id="desiTrend">
+                <option value="up">↑ Up</option>
+                <option value="stable">→ Stable</option>
+                <option value="down">↓ Down</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="desiTrendText">Trend Details (e.g., Stable)</label>
+              <input type="text" id="desiTrendText" placeholder="e.g., Stable" />
+            </div>
+          </div>
+
+          <!-- UPDATE DATE -->
+          <div class="update-date-group">
+            <div class="form-group">
+              <label for="updateDate">Last Updated Date</label>
+              <input type="text" id="updateDate" placeholder="e.g., May 10, 2026" />
+            </div>
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button class="save-btn" onclick="savePrices()">💾 Save Prices</button>
+          <button class="reset-btn" onclick="loadPrices()">🔄 Reset Form</button>
+        </div>
+      </div>
+
+      <!-- PREVIEW SECTION -->
+      <div class="preview-section">
+        <h3>📊 Preview (How it will look on website)</h3>
+        <div class="preview-grid">
+          <div class="preview-item">
+            <div class="preview-type" id="previewWhiteType">White Eggs</div>
+            <div class="preview-price" id="previewWhitePrice">₹ 420</div>
+            <div class="preview-trend" id="previewWhiteTrend">↑ +₹5 per dozen</div>
+          </div>
+          <div class="preview-item">
+            <div class="preview-type" id="previewBrownType">Brown Eggs</div>
+            <div class="preview-price" id="previewBrownPrice">₹ 450</div>
+            <div class="preview-trend" id="previewBrownTrend">→ Stable</div>
+          </div>
+          <div class="preview-item">
+            <div class="preview-type" id="previewDesiType">Desi Eggs</div>
+            <div class="preview-price" id="previewDesiPrice">₹ 520</div>
+            <div class="preview-trend" id="previewDesiTrend">↓ -₹3 per dozen</div>
+          </div>
+        </div>
+        <div style="text-align: center; margin-top: 20px; font-size: 0.9rem; opacity: 0.9;">
+          Last updated: <span id="previewDate">May 10, 2026</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // PASSWORD SETTINGS - Change this to your desired password
+    const ADMIN_PASSWORD = "sachin123";
+
+    // INITIALIZE
+    document.addEventListener('DOMContentLoaded', () => {
+      if (sessionStorage.getItem('adminLoggedIn') === 'true') {
+        showMainPanel();
+      }
+      loadPrices();
+    });
+
+    // PASSWORD CHECK
+    function checkPassword() {
+      const password = document.getElementById('passwordInput').value;
+      const errorDiv = document.getElementById('passwordError');
+      
+      if (password === ADMIN_PASSWORD) {
+        sessionStorage.setItem('adminLoggedIn', 'true');
+        document.getElementById('passwordInput').value = '';
+        errorDiv.textContent = '';
+        showMainPanel();
+      } else {
+        errorDiv.textContent = '❌ Incorrect password. Try again.';
+        document.getElementById('passwordInput').focus();
+      }
+    }
+
+    // ALLOW ENTER KEY
+    document.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter' && document.getElementById('loginSection').classList.contains('show')) {
+        checkPassword();
+      }
+    });
+
+    // SHOW MAIN PANEL
+    function showMainPanel() {
+      document.getElementById('loginSection').classList.remove('show');
+      document.getElementById('mainPanel').classList.add('show');
+    }
+
+    // LOGOUT
+    function logout() {
+      sessionStorage.removeItem('adminLoggedIn');
+      document.getElementById('loginSection').classList.add('show');
+      document.getElementById('mainPanel').classList.remove('show');
+      document.getElementById('passwordInput').value = '';
+      document.getElementById('passwordInput').focus();
+    }
+
+    // LOAD PRICES FROM STORAGE
+    function loadPrices() {
+      const prices = getPricesFromStorage();
+      
+      document.getElementById('whitePrice').value = prices.white.price;
+      document.getElementById('whiteTrend').value = prices.white.trend;
+      document.getElementById('whiteTrendText').value = prices.white.trendText;
+      
+      document.getElementById('brownPrice').value = prices.brown.price;
+      document.getElementById('brownTrend').value = prices.brown.trend;
+      document.getElementById('brownTrendText').value = prices.brown.trendText;
+      
+      document.getElementById('desiPrice').value = prices.desi.price;
+      document.getElementById('desiTrend').value = prices.desi.trend;
+      document.getElementById('desiTrendText').value = prices.desi.trendText;
+      
+      document.getElementById('updateDate').value = prices.updateDate;
+      
+      updatePreview();
+    }
+
+    // GET PRICES FROM STORAGE
+    function getPricesFromStorage() {
+      const stored = localStorage.getItem('eggPrices');
+      if (stored) {
+        return JSON.parse(stored);
+      }
+      
+      // DEFAULT PRICES
+      return {
+        white: { price: '420', trend: 'up', trendText: '+₹5 per dozen' },
+        brown: { price: '450', trend: 'stable', trendText: 'Stable' },
+        desi: { price: '520', trend: 'down', trendText: '-₹3 per dozen' },
+        updateDate: 'May 10, 2026'
+      };
+    }
+
+    // SAVE PRICES TO STORAGE
+    function savePrices() {
+      const prices = {
+        white: {
+          price: document.getElementById('whitePrice').value || '0',
+          trend: document.getElementById('whiteTrend').value,
+          trendText: document.getElementById('whiteTrendText').value
+        },
+        brown: {
+          price: document.getElementById('brownPrice').value || '0',
+          trend: document.getElementById('brownTrend').value,
+          trendText: document.getElementById('brownTrendText').value
+        },
+        desi: {
+          price: document.getElementById('desiPrice').value || '0',
+          trend: document.getElementById('desiTrend').value,
+          trendText: document.getElementById('desiTrendText').value
+        },
+        updateDate: document.getElementById('updateDate').value || 'Today'
+      };
+
+      // VALIDATION
+      if (!prices.white.price || !prices.brown.price || !prices.desi.price) {
+        showError('❌ Please fill in all prices');
+        return;
+      }
+
+      localStorage.setItem('eggPrices', JSON.stringify(prices));
+      showSuccess('✅ Prices saved successfully! Updates may take a moment to appear on your website.');
+      updatePreview();
+    }
+
+    // UPDATE PREVIEW
+    function updatePreview() {
+      const prices = getPricesFromStorage();
+      
+      // WHITE EGGS
+      document.getElementById('previewWhitePrice').textContent = '₹ ' + prices.white.price;
+      const whiteSymbol = prices.white.trend === 'up' ? '↑' : prices.white.trend === 'down' ? '↓' : '→';
+      document.getElementById('previewWhiteTrend').textContent = whiteSymbol + ' ' + prices.white.trendText;
+      
+      // BROWN EGGS
+      document.getElementById('previewBrownPrice').textContent = '₹ ' + prices.brown.price;
+      const brownSymbol = prices.brown.trend === 'up' ? '↑' : prices.brown.trend === 'down' ? '↓' : '→';
+      document.getElementById('previewBrownTrend').textContent = brownSymbol + ' ' + prices.brown.trendText;
+      
+      // DESI EGGS
+      document.getElementById('previewDesiPrice').textContent = '₹ ' + prices.desi.price;
+      const desiSymbol = prices.desi.trend === 'up' ? '↑' : prices.desi.trend === 'down' ? '↓' : '→';
+      document.getElementById('previewDesiTrend').textContent = desiSymbol + ' ' + prices.desi.trendText;
+      
+      // DATE
+      document.getElementById('previewDate').textContent = prices.updateDate;
+    }
+
+    // SHOW SUCCESS MESSAGE
+    function showSuccess(msg) {
+      const msgDiv = document.getElementById('successMessage');
+      msgDiv.textContent = msg;
+      msgDiv.classList.add('show');
+      setTimeout(() => {
+        msgDiv.classList.remove('show');
+      }, 4000);
+    }
+
+    // SHOW ERROR MESSAGE
+    function showError(msg) {
+      const msgDiv = document.getElementById('errorMessage');
+      msgDiv.textContent = msg;
+      msgDiv.classList.add('show');
+      setTimeout(() => {
+        msgDiv.classList.remove('show');
+      }, 4000);
+    }
+
+    // LIVE PREVIEW UPDATE
+    document.getElementById('whitePrice')?.addEventListener('input', updatePreview);
+    document.getElementById('whiteTrend')?.addEventListener('change', updatePreview);
+    document.getElementById('whiteTrendText')?.addEventListener('input', updatePreview);
+    document.getElementById('brownPrice')?.addEventListener('input', updatePreview);
+    document.getElementById('brownTrend')?.addEventListener('change', updatePreview);
+    document.getElementById('brownTrendText')?.addEventListener('input', updatePreview);
+    document.getElementById('desiPrice')?.addEventListener('input', updatePreview);
+    document.getElementById('desiTrend')?.addEventListener('change', updatePreview);
+    document.getElementById('desiTrendText')?.addEventListener('input', updatePreview);
+    document.getElementById('updateDate')?.addEventListener('input', updatePreview);
+  </script>
+</body>
+</html>

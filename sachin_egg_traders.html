@@ -99,6 +99,25 @@
     .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.9rem, 3.5vw, 2.7rem); font-weight: 700; line-height: 1.2; margin-bottom: 14px; }
     .section-sub { color: var(--muted); line-height: 1.75; max-width: 520px; }
 
+    /* PRICE TICKER */
+    .price-ticker { background: linear-gradient(135deg, #2A7A48 0%, #1f5c36 100%); padding: 32px 6vw; }
+    .ticker-label { color: rgba(255,255,255,0.85); font-size: 0.75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 20px; }
+    .ticker-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; }
+    .price-item { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.2); border-radius: 16px; padding: 24px; text-align: center; transition: transform .2s, background .2s; }
+    .price-item:hover { transform: translateY(-4px); background: rgba(255,255,255,0.15); }
+    .price-type { color: #fff; font-size: 1rem; font-weight: 600; margin-bottom: 12px; }
+    .price-value { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 700; color: #FBB830; margin-bottom: 8px; }
+    .price-trend { font-size: 0.9rem; font-weight: 500; }
+    .trend-up { color: #4ECDC4; }
+    .trend-down { color: #FF6B6B; }
+    .trend-stable { color: #FFD93D; }
+    .ticker-update { text-align: center; color: rgba(255,255,255,0.7); font-size: 0.75rem; margin-top: 16px; }
+    @media (max-width: 640px) {
+      .ticker-grid { gap: 16px; }
+      .price-item { padding: 18px; }
+      .price-value { font-size: 1.8rem; }
+    }
+
     /* PRODUCTS */
     .products { background: #fff; }
     .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; margin-top: 48px; }
@@ -274,6 +293,29 @@
       </svg>
     </div>
   </div>
+</section>
+
+<!-- PRICE TICKER -->
+<section class="price-ticker" aria-label="Daily Price Ticker">
+  <div class="ticker-label">📊 Today's Market Prices</div>
+  <div class="ticker-grid">
+    <div class="price-item">
+      <div class="price-type">White Eggs</div>
+      <div class="price-value">₹ 420</div>
+      <div class="price-trend trend-up">↑ +₹5 per dozen</div>
+    </div>
+    <div class="price-item">
+      <div class="price-type">Brown Eggs</div>
+      <div class="price-value">₹ 450</div>
+      <div class="price-trend trend-stable">→ Stable</div>
+    </div>
+    <div class="price-item">
+      <div class="price-type">Desi Eggs</div>
+      <div class="price-value">₹ 520</div>
+      <div class="price-trend trend-down">↓ -₹3 per dozen</div>
+    </div>
+  </div>
+  <div class="ticker-update">Last updated: May 10, 2026 • Call for bulk orders & custom pricing</div>
 </section>
 
 <!-- PRODUCTS -->

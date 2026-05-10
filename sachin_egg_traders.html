@@ -219,7 +219,10 @@
 <!-- NAV -->
 <nav role="navigation" aria-label="Primary Navigation">
   <a href="#" class="logo" aria-label="Sachin Egg Traders home">
-    <img src="assets/logo-full-traced.png" alt="Sachin Egg Traders — Purulia, West Bengal" class="site-logo site-logo--full">
+    <picture>
+      <source srcset="assets/logo-full-traced.webp" type="image/webp">
+      <img src="assets/logo-full-traced.png" alt="Sachin Egg Traders — Purulia, West Bengal" class="site-logo site-logo--full" loading="lazy" decoding="async">
+    </picture>
   </a>
   <button class="nav-toggle" aria-controls="primary-nav" aria-expanded="false" aria-label="Toggle navigation">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 12h18M3 18h18"></path></svg>
@@ -394,8 +397,9 @@
   <div class="about-visual">
     <!-- Use your traced full logo directly to ensure consistent display. -->
     <picture>
+      <source srcset="assets/logo-full-traced.webp" type="image/webp">
       <source srcset="assets/logo-full-traced.png" type="image/png">
-      <img src="assets/logo-stacked.svg" alt="Sachin Egg Traders logo" class="about-logo" loading="lazy" decoding="async">
+      <img src="assets/logo-full-traced.png" alt="Sachin Egg Traders logo" class="about-logo" loading="lazy" decoding="async">
     </picture>
   </div>
   <div class="about-text reveal">

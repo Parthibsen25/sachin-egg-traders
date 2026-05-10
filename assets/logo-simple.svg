@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="40" viewBox="0 0 160 40" role="img" aria-label="Sachin Egg Traders logo">
+  <rect width="160" height="40" rx="8" fill="#FEF6E4"/>
+  <ellipse cx="28" cy="20" rx="14" ry="18" fill="#FFFCF0" stroke="#E0B07A" stroke-width="1"/>
+  <text x="56" y="24" font-family="Outfit, Arial, sans-serif" font-size="14" fill="#18120A" font-weight="700">Sachin Egg Traders</text>
+</svg>

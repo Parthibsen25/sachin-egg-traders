@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Sachin Egg Traders – Trusted egg wholesaler in Purulia, West Bengal. Fresh desi, white, brown eggs in bulk. Delivery and pickup available." />
+  <meta name="keywords" content="egg wholesaler Purulia, egg supplier West Bengal, bulk eggs Purulia, desi egg wholesale, Sachin Egg Traders" />
+  <title>Sachin Egg Traders | Wholesale Egg Supplier – Purulia, West Bengal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="canonical" href="https://your-domain.com/sachin_egg_traders.html">
+  <meta name="robots" content="index, follow">
+  <link rel="icon" href="assets/favicon.ico" sizes="any">
+  <link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="assets/favicon-16.png" type="image/png" sizes="16x16">
+  <link rel="apple-touch-icon" href="assets/logo-128.png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --yolk:       #E8920A;
+      --yolk-light: #FBB830;
+      --yolk-pale:  #FEF6E4;
+      --cream:      #FDFAF4;
+      --shell:      #EDE2CC;
+      --ink:        #18120A;
+      --muted:      #7A6040;
+      --green:      #2A7A48;
+      --green-bg:   #EBF5EF;
+    }
+
+    body { font-family: 'Outfit', sans-serif; background: var(--cream); color: var(--ink); overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      background: rgba(253,250,244,0.95); backdrop-filter: blur(12px);
+      border-bottom: 1.5px solid var(--shell);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 6vw; height: 64px;
+    }
+    .logo { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 700; color: var(--ink); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-size: 0.875rem; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: var(--yolk); }
+    .nav-wa { background: var(--green); color: #fff; padding: 9px 18px; border-radius: 100px; font-size: 0.85rem; font-weight: 600; text-decoration: none; transition: background .2s, transform .15s; }
+    .nav-wa:hover { background: #1f5c36; transform: translateY(-1px); }
+    @media (max-width: 640px) { .nav-links { display: none; } }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh; padding: 110px 6vw 80px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      align-items: center; gap: 48px;
+      background: linear-gradient(135deg, #FDFAF4 55%, #FEF0CC 100%);
+      position: relative; overflow: hidden;
+    }
+    .hero::after { content: ''; position: absolute; right: -60px; bottom: -60px; width: 380px; height: 380px; background: radial-gradient(circle, rgba(232,146,10,0.15) 0%, transparent 70%); border-radius: 50%; pointer-events: none; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 7px; background: var(--green-bg); color: var(--green); padding: 6px 14px; border-radius: 100px; font-size: 0.78rem; font-weight: 600; letter-spacing: .05em; margin-bottom: 20px; }
+    .badge-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); animation: blink 1.8s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.2} }
+    .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.6rem, 5.5vw, 4rem); font-weight: 700; line-height: 1.1; margin-bottom: 20px; }
+    .hero h1 em { color: var(--yolk); font-style: italic; }
+    .hero-desc { font-size: 1rem; color: var(--muted); line-height: 1.75; max-width: 460px; margin-bottom: 36px; }
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-primary { background: var(--yolk); color: var(--ink); padding: 14px 28px; border-radius: 100px; font-weight: 700; font-size: 0.95rem; text-decoration: none; box-shadow: 0 6px 24px rgba(232,146,10,.35); transition: background .2s, transform .15s; }
+    .btn-primary:hover { background: #c47808; color: #fff; transform: translateY(-2px); }
+    .btn-ghost { border: 2px solid var(--ink); color: var(--ink); padding: 13px 26px; border-radius: 100px; font-weight: 600; font-size: 0.95rem; text-decoration: none; transition: all .2s; }
+    .btn-ghost:hover { background: var(--ink); color: var(--cream); }
+
+    .hero-visual { display: flex; justify-content: center; align-items: center; }
+    .egg-scene { position: relative; width: 300px; height: 300px; display: flex; justify-content: center; align-items: center; }
+    .egg { border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%; position: absolute; }
+    .egg-main { width: 160px; height: 200px; background: linear-gradient(155deg, #FFFCF0, #F0DDB0); box-shadow: inset -8px -14px 22px rgba(0,0,0,0.07), inset 6px 8px 18px rgba(255,255,255,0.9), 0 24px 56px rgba(160,110,30,.22); z-index: 3; animation: floatEgg 3.5s ease-in-out infinite; }
+    .egg-brown { width: 110px; height: 138px; background: linear-gradient(155deg, #C8845A, #7A3C18); box-shadow: inset -5px -8px 16px rgba(0,0,0,.18), 0 12px 28px rgba(0,0,0,.14); left: 18px; bottom: 28px; z-index: 2; animation: floatEgg 3.5s ease-in-out infinite; animation-delay: .7s; }
+    .egg-desi { width: 95px; height: 118px; background: linear-gradient(155deg, #EEC86A, #B07820); box-shadow: inset -4px -6px 14px rgba(0,0,0,.12), 0 10px 24px rgba(0,0,0,.1); right: 20px; top: 36px; z-index: 2; animation: floatEgg 3.5s ease-in-out infinite; animation-delay: 1.2s; }
+    @keyframes floatEgg { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+
+    .hero-stats { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 36px; }
+    .stat { background: rgba(255,255,255,0.85); border: 1.5px solid var(--shell); border-radius: 14px; padding: 14px 22px; }
+    .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; font-weight: 700; color: var(--yolk); }
+    .stat-label { font-size: 0.75rem; color: var(--muted); font-weight: 500; margin-top: 2px; }
+
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; text-align: center; padding-top: 95px; }
+      .hero-desc { margin: 0 auto 32px; }
+      .hero-btns, .hero-stats { justify-content: center; }
+      .hero-visual { order: -1; }
+      .egg-scene { width: 220px; height: 220px; }
+      .egg-main { width: 120px; height: 150px; }
+      .egg-brown { width: 82px; height: 103px; }
+      .egg-desi { width: 72px; height: 90px; }
+    }
+
+    /* SECTIONS */
+    section { padding: 80px 6vw; }
+    .section-tag { font-size: 0.72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--yolk); margin-bottom: 10px; }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.9rem, 3.5vw, 2.7rem); font-weight: 700; line-height: 1.2; margin-bottom: 14px; }
+    .section-sub { color: var(--muted); line-height: 1.75; max-width: 520px; }
+
+    /* PRODUCTS */
+    .products { background: #fff; }
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; margin-top: 48px; }
+    .product-card { background: var(--cream); border: 1.5px solid var(--shell); border-radius: 20px; padding: 32px 24px; text-align: center; transition: transform .25s, box-shadow .25s, border-color .25s; }
+    .product-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,.09); border-color: var(--yolk-light); }
+    .product-icon { font-size: 3rem; margin-bottom: 16px; display: block; animation: floatEgg 3.5s ease-in-out infinite; }
+    .product-card:nth-child(2) .product-icon { animation-delay: .5s; }
+    .product-card:nth-child(3) .product-icon { animation-delay: 1s; }
+    .product-card:nth-child(4) .product-icon { animation-delay: 1.5s; }
+    .product-name { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; font-weight: 700; margin-bottom: 8px; }
+    .product-desc { font-size: 0.875rem; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
+    .product-tag { display: inline-block; background: var(--yolk-pale); color: var(--yolk); padding: 4px 12px; border-radius: 100px; font-size: 0.75rem; font-weight: 600; }
+
+    /* PRICING */
+    .pricing { background: var(--yolk-pale); }
+    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin-top: 48px; }
+    .price-card { background: #fff; border: 1.5px solid var(--shell); border-radius: 20px; padding: 32px 28px; transition: transform .25s, box-shadow .25s; }
+    .price-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0,0,0,.09); }
+    .price-card.featured { border-color: var(--yolk); box-shadow: 0 8px 32px rgba(232,146,10,.2); }
+    .featured-label { display: inline-block; background: var(--yolk); color: var(--ink); padding: 3px 12px; border-radius: 100px; font-size: 0.72rem; font-weight: 700; letter-spacing: .06em; margin-bottom: 14px; }
+    .price-tier { font-size: 0.8rem; color: var(--muted); font-weight: 600; margin-bottom: 8px; }
+    .price-amount { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 700; color: var(--ink); line-height: 1; }
+    .price-unit { font-size: 0.85rem; color: var(--muted); margin-top: 4px; margin-bottom: 16px; }
+    .price-features { list-style: none; }
+    .price-features li { font-size: 0.875rem; color: var(--muted); padding: 6px 0; border-bottom: 1px solid var(--shell); display: flex; align-items: center; gap: 8px; }
+    .price-features li:last-child { border-bottom: none; }
+    .price-features li::before { content: '✓'; color: var(--green); font-weight: 700; }
+
+    /* WHY US */
+    .why { background: var(--ink); color: #fff; }
+    .why .section-tag { color: var(--yolk-light); }
+    .why .section-title { color: #fff; }
+    .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 48px; }
+    .why-card { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 16px; padding: 28px 22px; transition: background .2s, transform .2s; }
+    .why-card:hover { background: rgba(255,255,255,.11); transform: translateY(-4px); }
+    .why-icon { font-size: 2.2rem; margin-bottom: 14px; display: block; }
+    .why-title { font-weight: 600; font-size: 1rem; margin-bottom: 8px; }
+    .why-text { font-size: 0.85rem; color: rgba(255,255,255,.55); line-height: 1.65; }
+
+    /* DELIVERY */
+    .delivery { background: var(--green-bg); }
+    .delivery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 48px; }
+    .delivery-option { background: #fff; border-radius: 20px; padding: 32px 28px; border: 1.5px solid var(--shell); transition: transform .25s, box-shadow .25s; }
+    .delivery-option:hover { transform: translateY(-4px); box-shadow: 0 14px 36px rgba(0,0,0,.08); }
+    .delivery-icon { font-size: 2.5rem; margin-bottom: 14px; display: block; }
+    .delivery-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 8px; }
+    .delivery-text { font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
+    @media (max-width: 600px) { .delivery-grid { grid-template-columns: 1fr; } }
+
+    /* ABOUT */
+    .about { background: #fff; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 60px; }
+    .about-visual { background: linear-gradient(135deg, var(--yolk-pale), #FDE8B0); border-radius: 24px; padding: 60px 40px; text-align: center; font-size: 5rem; line-height: 1.5; }
+    .about ul { list-style: none; margin-top: 24px; }
+    .about ul li { display: flex; align-items: flex-start; gap: 10px; font-size: 0.9rem; color: var(--muted); padding: 8px 0; border-bottom: 1px solid var(--shell); line-height: 1.6; }
+    .about ul li:last-child { border-bottom: none; }
+    .about ul li span:first-child { color: var(--green); font-size: 1rem; margin-top: 1px; }
+    @media (max-width: 700px) { .about { grid-template-columns: 1fr; } .about-visual { display: none; } }
+
+    /* CONTACT */
+    .contact { background: var(--cream); }
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-top: 48px; }
+    .contact-card { background: #fff; border: 1.5px solid var(--shell); border-radius: 20px; padding: 28px 24px; display: flex; align-items: flex-start; gap: 16px; transition: transform .2s, box-shadow .2s; text-decoration: none; color: var(--ink); }
+    .contact-card:hover { transform: translateY(-4px); box-shadow: 0 14px 36px rgba(0,0,0,.08); }
+    .contact-icon { width: 50px; height: 50px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; }
+    .ci-wa  { background: #E8F8EF; }
+    .ci-ph  { background: var(--yolk-pale); }
+    .ci-loc { background: #EEF2FF; }
+    .ci-hr  { background: #FFF3F3; }
+    .contact-label { font-size: 0.72rem; color: var(--muted); font-weight: 600; margin-bottom: 4px; text-transform: uppercase; letter-spacing: .06em; }
+    .contact-value { font-weight: 600; font-size: 0.95rem; }
+    .contact-sub { font-size: 0.8rem; color: var(--muted); margin-top: 3px; }
+
+    /* FOOTER */
+    footer { background: var(--ink); color: rgba(255,255,255,.5); text-align: center; padding: 28px 6vw; font-size: 0.82rem; line-height: 1.9; }
+    footer strong { color: rgba(255,255,255,.85); }
+    .yolk-text { color: var(--yolk-light); }
+
+    /* SCROLL REVEAL */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    /* Focus styles for keyboard users */
+    a:focus, button:focus { outline: 3px solid var(--yolk-light); outline-offset: 3px; }
+    /* Layout container */
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 6vw; }
+
+    /* Responsive nav toggle */
+    .nav-toggle { display: none; background: transparent; border: none; font-size: 1.05rem; padding: 8px; cursor: pointer; }
+    .nav-toggle svg { width: 22px; height: 22px; display: block; }
+    @media (max-width: 640px) {
+      .nav-toggle { display: inline-flex; align-items: center; gap: 8px; }
+      .nav-links { position: absolute; top: 64px; left: 0; right: 0; background: rgba(253,250,244,0.98); display: none; flex-direction: column; padding: 12px 6vw; gap: 8px; }
+      .nav-links.open { display: flex; }
+      nav { padding: 0 4vw; }
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Sachin Egg Traders",
+    "telephone": "+91 9800567482",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Purulia",
+      "addressRegion": "West Bengal",
+      "addressCountry": "IN"
+    },
+    "areaServed": "Purulia",
+    "url": "https://your-domain.com",
+    "openingHours": "Mo-Su 08:00-20:30"
+  }
+  </script>
+  <link rel="icon" href="assets/logo-icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav role="navigation" aria-label="Primary Navigation">
+  <a href="#" class="logo" aria-label="Sachin Egg Traders home">
+    <img src="assets/logo-full-traced.png" alt="Sachin Egg Traders — Purulia, West Bengal" class="site-logo site-logo--full">
+  </a>
+  <button class="nav-toggle" aria-controls="primary-nav" aria-expanded="false" aria-label="Toggle navigation">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M3 12h18M3 18h18"></path></svg>
+  </button>
+  <ul id="primary-nav" class="nav-links">
+    <li><a href="#products">Products</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li class="mobile-wa"><a href="https://wa.me/919800567482?text=Hi%20Sachin%20Egg%20Traders%2C%20I%20want%20to%20order%20eggs." target="_blank" rel="noopener noreferrer">WhatsApp Order</a></li>
+  </ul>
+  <a href="https://wa.me/919800567482?text=Hi%20Sachin%20Egg%20Traders%2C%20I%20want%20to%20order%20eggs." class="nav-wa" target="_blank" rel="noopener noreferrer">💬 WhatsApp Order</a>
+</nav>
+
+<main role="main">
+  <div class="container">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge"><div class="badge-dot"></div> Fresh Stock Available Daily</div>
+    <h1>Purulia's <em>Trusted</em><br/>Egg Wholesaler</h1>
+    <p class="hero-desc">
+      Sachin Egg Traders is a trusted egg wholesaler in Purulia, West Bengal.
+      We supply fresh desi, white, and brown eggs in bulk to hotels, restaurants,
+      dhabas, and retailers. Daily delivery and shop pickup both available.
+    </p>
+    <div class="hero-btns">
+        <a href="https://wa.me/919800567482?text=Hi%20Sachin%20Egg%20Traders%2C%20I%20want%20to%20order%20eggs." class="btn-primary" target="_blank" rel="noopener noreferrer">📦 Order Now on WhatsApp</a>
+      <a href="#products" class="btn-ghost">See Products</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">500+</div><div class="stat-label">Daily Trays</div></div>
+      <div class="stat"><div class="stat-num">3+</div><div class="stat-label">Egg Varieties</div></div>
+      <div class="stat"><div class="stat-num">Daily</div><div class="stat-label">Fresh Stock</div></div>
+    </div>
+  </div>
+  <div class="hero-visual">
+    <div class="egg-scene" aria-hidden="true">
+      <svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="eggMain" x1="0" x2="1"><stop offset="0%" stop-color="#FFFCF0"/><stop offset="100%" stop-color="#F0DDB0"/></linearGradient>
+          <linearGradient id="eggBrown" x1="0" x2="1"><stop offset="0%" stop-color="#C8845A"/><stop offset="100%" stop-color="#7A3C18"/></linearGradient>
+          <linearGradient id="eggDesi" x1="0" x2="1"><stop offset="0%" stop-color="#EEC86A"/><stop offset="100%" stop-color="#B07820"/></linearGradient>
+        </defs>
+        <ellipse cx="90" cy="200" rx="45" ry="60" fill="url(#eggBrown)" opacity="0.95" />
+        <ellipse cx="210" cy="120" rx="35" ry="46" fill="url(#eggDesi)" opacity="0.95" />
+        <ellipse cx="150" cy="150" rx="60" ry="80" fill="url(#eggMain)" opacity="0.98" />
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products" id="products">
+  <div class="reveal">
+    <div class="section-tag">What We Sell</div>
+    <div class="section-title">Fresh Egg Varieties</div>
+    <p class="section-sub">Sourced directly from farms. All varieties available in bulk trays and custom quantities.</p>
+  </div>
+  <div class="products-grid reveal">
+    <div class="product-card">
+      <span class="product-icon">🥚</span>
+      <div class="product-name">White Eggs</div>
+      <p class="product-desc">Large, clean white eggs ideal for hotels, bakeries, and bulk buyers. Available in trays of 30.</p>
+      <span class="product-tag">Most Popular</span>
+    </div>
+    <div class="product-card">
+      <span class="product-icon">🍳</span>
+      <div class="product-name">Desi Eggs</div>
+      <p class="product-desc">Farm-fresh desi eggs with rich yolk. Preferred by households, dhabas, and health-conscious buyers.</p>
+      <span class="product-tag">Farm Fresh</span>
+    </div>
+    <div class="product-card">
+      <span class="product-icon">🟤</span>
+      <div class="product-name">Brown Eggs</div>
+      <p class="product-desc">Premium brown eggs with thick shells. Great for restaurants and premium buyers.</p>
+      <span class="product-tag">Premium</span>
+    </div>
+    <div class="product-card">
+      <span class="product-icon">📦</span>
+      <div class="product-name">Bulk Tray Orders</div>
+      <p class="product-desc">Order 10, 50, or 100+ trays at wholesale rates. Best prices for large quantity buyers.</p>
+      <span class="product-tag">Wholesale</span>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="reveal">
+    <div class="section-tag">Wholesale Pricing</div>
+    <div class="section-title">Bulk Rates & Tiers</div>
+    <p class="section-sub">Better price for bigger orders. Contact us for exact daily rates — prices vary with market.</p>
+  </div>
+  <div class="pricing-grid reveal">
+    <div class="price-card">
+      <div class="price-tier">Small Order</div>
+      <div class="price-amount">1–10</div>
+      <div class="price-unit">Trays (30 eggs each)</div>
+      <ul class="price-features">
+        <li>All egg varieties</li>
+        <li>Shop pickup available</li>
+        <li>Same-day supply</li>
+      </ul>
+    </div>
+    <div class="price-card featured">
+      <div class="featured-label">★ BEST VALUE</div>
+      <div class="price-tier">Bulk Order</div>
+      <div class="price-amount">10–50</div>
+      <div class="price-unit">Trays (30 eggs each)</div>
+      <ul class="price-features">
+        <li>Discounted wholesale rate</li>
+        <li>Free delivery in Purulia</li>
+        <li>Priority stock allocation</li>
+        <li>All varieties available</li>
+      </ul>
+    </div>
+    <div class="price-card">
+      <div class="price-tier">Large / Commercial</div>
+      <div class="price-amount">50+</div>
+      <div class="price-unit">Trays (30 eggs each)</div>
+      <ul class="price-features">
+        <li>Best wholesale price</li>
+        <li>Scheduled daily delivery</li>
+        <li>Dedicated account support</li>
+        <li>Custom invoice & billing</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="why">
+  <div class="reveal">
+    <div class="section-tag">Why Choose Us</div>
+    <div class="section-title">Reliable. Fresh. Fair Price.</div>
+  </div>
+  <div class="why-grid reveal">
+    <div class="why-card"><span class="why-icon">🌅</span><div class="why-title">Fresh Daily Stock</div><p class="why-text">New stock arrives every morning. You always get the freshest eggs, never old inventory.</p></div>
+    <div class="why-card"><span class="why-icon">💰</span><div class="why-title">Best Wholesale Price</div><p class="why-text">Competitive rates directly from the farm. No middlemen. Save more on bulk orders.</p></div>
+    <div class="why-card"><span class="why-icon">🚚</span><div class="why-title">On-Time Delivery</div><p class="why-text">We deliver on time, every time. Your business never runs short because of us.</p></div>
+    <div class="why-card"><span class="why-icon">🤝</span><div class="why-title">Trusted by Many</div><p class="why-text">Hotels, dhabas, restaurants and retailers in Purulia trust us for regular supply.</p></div>
+    <div class="why-card"><span class="why-icon">📱</span><div class="why-title">Easy WhatsApp Order</div><p class="why-text">Just send a WhatsApp message to place your order. Simple, quick, and hassle-free.</p></div>
+    <div class="why-card"><span class="why-icon">✅</span><div class="why-title">Quality Guaranteed</div><p class="why-text">Every batch is checked for quality. We only supply eggs we are proud of.</p></div>
+  </div>
+</section>
+
+<!-- DELIVERY -->
+<section class="delivery" id="delivery">
+  <div class="reveal">
+    <div class="section-tag">How To Get Your Order</div>
+    <div class="section-title">Delivery & Pickup</div>
+    <p class="section-sub">Choose what works best for you — we're flexible.</p>
+  </div>
+  <div class="delivery-grid reveal">
+    <div class="delivery-option">
+      <span class="delivery-icon">🚚</span>
+      <div class="delivery-title">Bulk Delivery</div>
+      <p class="delivery-text">We deliver directly to your hotel, restaurant, dhaba, or shop in Purulia. Place your order on WhatsApp the previous evening for next-morning delivery.</p>
+    </div>
+    <div class="delivery-option">
+      <span class="delivery-icon">🏪</span>
+      <div class="delivery-title">Shop Pickup</div>
+      <p class="delivery-text">Visit our wholesale shop in Purulia and pick up your order directly. Fresh stock available from early morning. No advance booking needed for small quantities.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-visual">
+    <!-- Use your traced full logo directly to ensure consistent display. -->
+    <picture>
+      <source srcset="assets/logo-full-traced.png" type="image/png">
+      <img src="assets/logo-stacked.svg" alt="Sachin Egg Traders logo" class="about-logo" loading="lazy" decoding="async">
+    </picture>
+  </div>
+  <div class="about-text reveal">
+    <div class="section-tag">About Us</div>
+    <div class="section-title">Sachin Egg Traders</div>
+    <p class="section-sub">Sachin Egg Traders is a trusted egg wholesaler in Purulia, West Bengal. We supply fresh desi, white, and brown eggs in bulk to hotels, restaurants, dhabas, and retailers. Daily delivery and shop pickup both available.</p>
+    <ul>
+      <li><span>✓</span><span>Located in Purulia, West Bengal — serving the local market</span></li>
+      <li><span>✓</span><span>Supplying to hotels, restaurants, dhabas, shops & homes</span></li>
+      <li><span>✓</span><span>Direct farm sourcing — fresher eggs, better prices</span></li>
+      <li><span>✓</span><span>Flexible orders — small or large, we handle both</span></li>
+      <li><span>✓</span><span>WhatsApp ordering — easy and fast</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="reveal">
+    <div class="section-tag">Get In Touch</div>
+    <div class="section-title">Contact & Order</div>
+    <p class="section-sub">Ready to order? Reach us on WhatsApp or call directly. We respond fast.</p>
+  </div>
+  <div class="contact-grid reveal">
+    <a href="https://wa.me/919800567482?text=Hi%20Sachin%20Egg%20Traders%2C%20I%20want%20to%20order%20eggs." class="contact-card" target="_blank" rel="noopener noreferrer">
+      <div class="contact-icon ci-wa">💬</div>
+      <div><div class="contact-label">WhatsApp</div><div class="contact-value">+91 9800567482</div><div class="contact-sub">Click to chat & order now</div></div>
+    </a>
+    <a href="tel:+919800567482" class="contact-card">
+      <div class="contact-icon ci-ph">📞</div>
+      <div><div class="contact-label">Phone</div><div class="contact-value">+91 9800567482</div><div class="contact-sub">Call us anytime</div></div>
+    </a>
+    <div class="contact-card">
+      <div class="contact-icon ci-loc">📍</div>
+      <div><div class="contact-label">Location</div><div class="contact-value">Purulia, West Bengal</div><div class="contact-sub">Shop pickup available</div></div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon ci-hr">🕐</div>
+      <div><div class="contact-label">Working Hours</div><div class="contact-value">8:00 AM – 8:30 PM</div><div class="contact-sub">Monday to Sunday</div></div>
+    </div>
+  </div>
+</section>
+
+    </div> <!-- .container -->
+  </main>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>Sachin Egg Traders</strong> &nbsp;·&nbsp; Wholesale Egg Supplier &nbsp;·&nbsp; <span class="yolk-text">Purulia, West Bengal</span></p>
+  <p style="margin-top:6px">🥚 Fresh Stock Daily &nbsp;·&nbsp; 🚚 Delivery Available &nbsp;·&nbsp; 💬 WhatsApp Orders Welcome</p>
+</footer>
+
+<script src="scripts.js" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="60" viewBox="0 0 220 60" role="img" aria-label="Client logo placeholder">
+  <rect width="220" height="60" rx="8" fill="#fff" stroke="#EDE2CC"/>
+  <path d="M24 44c8-12 20-18 36-18s28 6 36 18" fill="#EEC86A"/>
+  <text x="60" y="36" font-family="Outfit, Arial" font-size="14" fill="#18120A">Restaurant XYZ</text>
+</svg>

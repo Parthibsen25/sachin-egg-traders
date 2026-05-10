@@ -26,3 +26,19 @@ http://localhost:8000
 ## GitHub
 
 Repository: `https://github.com/Parthibsen25/sachin-egg-traders.git`
+
+## GitHub Pages
+
+To publish this site with GitHub Pages:
+
+1. Open the repository on GitHub.
+2. Go to `Settings` > `Pages`.
+3. Under `Build and deployment`, select `Deploy from a branch`.
+4. Choose branch `main` and folder `/ (root)`.
+5. Save the settings and wait for GitHub to publish the site.
+
+After deployment, your site will usually be available at:
+
+```text
+https://parthibsen25.github.io/sachin-egg-traders/
+```

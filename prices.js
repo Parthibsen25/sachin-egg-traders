@@ -6,35 +6,48 @@ function loadPriceTicker() {
   if (stored) {
     prices = JSON.parse(stored);
   } else {
-    // DEFAULT PRICES
+    // DEFAULT PRICES (1 Peti = 210 Pieces)
     prices = {
-      white: { price: '420', trend: 'up', trendText: '+₹5 per dozen' },
-      brown: { price: '450', trend: 'stable', trendText: 'Stable' },
-      desi: { price: '520', trend: 'down', trendText: '-₹3 per dozen' },
+      big: { price: '1100', trend: 'stable', trendText: 'Stable' },
+      medium: { price: '1000', trend: 'stable', trendText: 'Stable' },
+      small: { price: '900', trend: 'stable', trendText: 'Stable' },
+      desi: { price: '1200', trend: 'stable', trendText: 'Stable' },
+      duck: { price: '1500', trend: 'stable', trendText: 'Stable' },
       updateDate: 'May 10, 2026'
     };
   }
 
-  // UPDATE WHITE EGGS
-  const whitePriceEl = document.querySelector('[data-price-type="white"] .price-value');
-  const whiteTrendEl = document.querySelector('[data-price-type="white"] .price-trend');
-  if (whitePriceEl) whitePriceEl.textContent = '₹ ' + prices.white.price;
-  if (whiteTrendEl) {
-    const trendClass = 'trend-' + prices.white.trend;
-    whiteTrendEl.className = 'price-trend ' + trendClass;
-    const symbol = prices.white.trend === 'up' ? '↑' : prices.white.trend === 'down' ? '↓' : '→';
-    whiteTrendEl.textContent = symbol + ' ' + prices.white.trendText;
+  // UPDATE BIG EGGS
+  const bigPriceEl = document.querySelector('[data-price-type="big"] .price-value');
+  const bigTrendEl = document.querySelector('[data-price-type="big"] .price-trend');
+  if (bigPriceEl) bigPriceEl.textContent = '₹ ' + prices.big.price;
+  if (bigTrendEl) {
+    const trendClass = 'trend-' + prices.big.trend;
+    bigTrendEl.className = 'price-trend ' + trendClass;
+    const symbol = prices.big.trend === 'up' ? '↑' : prices.big.trend === 'down' ? '↓' : '→';
+    bigTrendEl.textContent = symbol + ' ' + prices.big.trendText;
   }
 
-  // UPDATE BROWN EGGS
-  const brownPriceEl = document.querySelector('[data-price-type="brown"] .price-value');
-  const brownTrendEl = document.querySelector('[data-price-type="brown"] .price-trend');
-  if (brownPriceEl) brownPriceEl.textContent = '₹ ' + prices.brown.price;
-  if (brownTrendEl) {
-    const trendClass = 'trend-' + prices.brown.trend;
-    brownTrendEl.className = 'price-trend ' + trendClass;
-    const symbol = prices.brown.trend === 'up' ? '↑' : prices.brown.trend === 'down' ? '↓' : '→';
-    brownTrendEl.textContent = symbol + ' ' + prices.brown.trendText;
+  // UPDATE MEDIUM EGGS
+  const mediumPriceEl = document.querySelector('[data-price-type="medium"] .price-value');
+  const mediumTrendEl = document.querySelector('[data-price-type="medium"] .price-trend');
+  if (mediumPriceEl) mediumPriceEl.textContent = '₹ ' + prices.medium.price;
+  if (mediumTrendEl) {
+    const trendClass = 'trend-' + prices.medium.trend;
+    mediumTrendEl.className = 'price-trend ' + trendClass;
+    const symbol = prices.medium.trend === 'up' ? '↑' : prices.medium.trend === 'down' ? '↓' : '→';
+    mediumTrendEl.textContent = symbol + ' ' + prices.medium.trendText;
+  }
+
+  // UPDATE SMALL EGGS
+  const smallPriceEl = document.querySelector('[data-price-type="small"] .price-value');
+  const smallTrendEl = document.querySelector('[data-price-type="small"] .price-trend');
+  if (smallPriceEl) smallPriceEl.textContent = '₹ ' + prices.small.price;
+  if (smallTrendEl) {
+    const trendClass = 'trend-' + prices.small.trend;
+    smallTrendEl.className = 'price-trend ' + trendClass;
+    const symbol = prices.small.trend === 'up' ? '↑' : prices.small.trend === 'down' ? '↓' : '→';
+    smallTrendEl.textContent = symbol + ' ' + prices.small.trendText;
   }
 
   // UPDATE DESI EGGS
@@ -48,10 +61,21 @@ function loadPriceTicker() {
     desiTrendEl.textContent = symbol + ' ' + prices.desi.trendText;
   }
 
+  // UPDATE DUCK EGGS
+  const duckPriceEl = document.querySelector('[data-price-type="duck"] .price-value');
+  const duckTrendEl = document.querySelector('[data-price-type="duck"] .price-trend');
+  if (duckPriceEl) duckPriceEl.textContent = '₹ ' + prices.duck.price;
+  if (duckTrendEl) {
+    const trendClass = 'trend-' + prices.duck.trend;
+    duckTrendEl.className = 'price-trend ' + trendClass;
+    const symbol = prices.duck.trend === 'up' ? '↑' : prices.duck.trend === 'down' ? '↓' : '→';
+    duckTrendEl.textContent = symbol + ' ' + prices.duck.trendText;
+  }
+
   // UPDATE DATE
   const updateDateEl = document.querySelector('.ticker-update');
   if (updateDateEl) {
-    updateDateEl.textContent = 'Last updated: ' + prices.updateDate + ' • Call for bulk orders & custom pricing';
+    updateDateEl.textContent = 'Last updated: ' + prices.updateDate + ' • 1 Peti = 210 Pieces';
   }
 }
 

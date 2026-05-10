@@ -8,14 +8,22 @@
 
 ## How to Update Prices
 
-1. **Fill in the prices** for each egg type (White, Brown, Desi)
+1. **Fill in the prices (per peti)** for each egg type:
+   - Big Egg (₹1100)
+   - Medium Egg (₹1000)
+   - Small Egg (₹900)
+   - Desi Egg (₹1200)
+   - Duck Egg (₹1500)
+
+   **Note: 1 Peti = 210 Pieces**
+
 2. **Select the trend**:
    - ↑ **Up** - Price increased
    - → **Stable** - No change
    - ↓ **Down** - Price decreased
-3. **Add trend details** (e.g., "+₹5 per dozen")
+3. **Add trend details** (e.g., "+₹50", "-₹30", "Stable")
 4. **Update the date** (e.g., "May 11, 2026")
-5. Click **"💾 Save Prices"**
+5. Click **"💾 Save Prices"** — Updates will appear on website within 30 seconds
 
 ## Where Data is Stored
 

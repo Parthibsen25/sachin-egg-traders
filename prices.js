@@ -1,6 +1,8 @@
 // Load prices from localStorage, optionally from a published Google Sheet (CSV), and update the price ticker
 // To enable Google Sheets syncing: publish your sheet to the web (CSV) and set SHEET_CSV_URL to that URL.
-const SHEET_CSV_URL = ''; // <-- Paste your published CSV URL here to enable cross-device updates
+// CSV URL for your Google Sheet. I converted your edit link to an export CSV URL below.
+// Make sure the sheet is shared as "Anyone with the link can view" or published to the web.
+const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/1zmvN0S-0xY23E-zvuUHowRlGrBwCpiffnBiz8C2ifx8/export?format=csv&gid=0';
 
 function parseCsvToPrices(csvText) {
   const lines = csvText.trim().split(/\r?\n/).map(l => l.trim()).filter(Boolean);

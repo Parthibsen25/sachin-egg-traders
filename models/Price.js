@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
-const PriceSchema = new Schema({
-  type: { type: String, required: true, unique: true },
-  price: { type: Number, required: true },
-  updateDate: { type: String }
+const priceSchema = new mongoose.Schema({
+  eggType:     { type: String, required: true, unique: true },
+  pricePerEgg: { type: Number, required: true },
+  pricePerTray:{ type: Number, required: true },
+  updatedAt:   { type: Date, default: Date.now }
 });
 
-module.exports = mongoose.model('Price', PriceSchema);
+module.exports = mongoose.model('Price', priceSchema);

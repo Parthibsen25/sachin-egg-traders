@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin – Sachin Egg Traders</title>
+  <style>
+    body { font-family: sans-serif; background: #fff8ee; padding: 20px; max-width: 480px; margin: 0 auto; }
+    h1 { color: #E8920A; margin-bottom: 6px; }
+    .subtitle { color: #888; font-size: 0.85rem; margin-bottom: 28px; }
+    .card { background: #fff; border: 1.5px solid #EDE2CC; border-radius: 16px; padding: 24px; margin-bottom: 20px; }
+    .card h2 { font-size: 1.1rem; margin-bottom: 16px; }
+    label { font-size: 0.82rem; color: #666; font-weight: 600; display: block; margin-bottom: 4px; }
+    input { width: 100%; padding: 10px 14px; border: 1.5px solid #EDE2CC; border-radius: 10px; font-size: 0.95rem; margin-bottom: 14px; outline: none; }
+    input:focus { border-color: #E8920A; }
+    button { width: 100%; background: #E8920A; color: #fff; border: none; padding: 13px; border-radius: 10px; font-size: 1rem; font-weight: 700; cursor: pointer; }
+    button:hover { background: #c47808; }
+    .msg { text-align: center; margin-top: 12px; font-size: 0.9rem; font-weight: 600; }
+    .msg.success { color: #2A7A48; }
+    .msg.error   { color: #C0392B; }
+    .password-box { background: #fff; border: 1.5px solid #EDE2CC; border-radius: 16px; padding: 24px; margin-bottom: 28px; }
+  </style>
+</head>
+<body>
+
+<h1>🥚 Admin Panel</h1>
+<p class="subtitle">Sachin Egg Traders – Purulia, West Bengal</p>
+
+<!-- Password -->
+<div class="password-box">
+  <label>Admin Password</label>
+  <input type="password" id="adminPassword" placeholder="Enter your password"/>
+</div>
+
+<!-- White Egg -->
+<div class="card">
+  <h2>🥚 White Egg Price</h2>
+  <label>Price per Egg (₹)</label>
+  <input type="number" id="white-egg" placeholder="e.g. 6.50" step="0.10"/>
+  <label>Price per Tray of 30 (₹)</label>
+  <input type="number" id="white-tray" placeholder="e.g. 195"/>
+  <button onclick="updatePrice('White', 'white')">Update White Egg Price</button>
+  <div class="msg" id="msg-white"></div>
+</div>
+
+<!-- Desi Egg -->
+<div class="card">
+  <h2>🍳 Desi Egg Price</h2>
+  <label>Price per Egg (₹)</label>
+  <input type="number" id="desi-egg" placeholder="e.g. 8.00" step="0.10"/>
+  <label>Price per Tray of 30 (₹)</label>
+  <input type="number" id="desi-tray" placeholder="e.g. 240"/>
+  <button onclick="updatePrice('Desi', 'desi')">Update Desi Egg Price</button>
+  <div class="msg" id="msg-desi"></div>
+</div>
+
+<!-- Brown Egg -->
+<div class="card">
+  <h2>🟤 Brown Egg Price</h2>
+  <label>Price per Egg (₹)</label>
+  <input type="number" id="brown-egg" placeholder="e.g. 7.50" step="0.10"/>
+  <label>Price per Tray of 30 (₹)</label>
+  <input type="number" id="brown-tray" placeholder="e.g. 225"/>
+  <button onclick="updatePrice('Brown', 'brown')">Update Brown Egg Price</button>
+  <div class="msg" id="msg-brown"></div>
+</div>
+
+<script>
+  const API_URL = '/api/prices';
+
+  // Load current prices into the form
+  async function loadCurrentPrices() {
+    try {
+      const res = await fetch(API_URL);
+      const prices = await res.json();
+      prices.forEach(p => {
+        const key = p.eggType.toLowerCase();
+        const eggEl = document.getElementById(key + '-egg');
+        const trayEl = document.getElementById(key + '-tray');
+        if (eggEl)  eggEl.value  = p.pricePerEgg;
+        if (trayEl) trayEl.value = p.pricePerTray;
+      });
+    } catch (err) {
+      console.log('Could not load prices');
+    }
+  }
+
+  // Update price
+  async function updatePrice(eggType, key) {
+    const password    = document.getElementById('adminPassword').value;
+    const pricePerEgg = parseFloat(document.getElementById(key + '-egg').value);
+    const pricePerTray= parseFloat(document.getElementById(key + '-tray').value);
+    const msgEl       = document.getElementById('msg-' + key);
+
+    if (!password) { msgEl.textContent = '❌ Enter password first!'; msgEl.className = 'msg error'; return; }
+    if (!pricePerEgg || !pricePerTray) { msgEl.textContent = '❌ Enter both prices!'; msgEl.className = 'msg error'; return; }
+
+    try {
+      const res = await fetch(`${API_URL}/${eggType}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password, pricePerEgg, pricePerTray })
+      });
+      const data = await res.json();
+      if (res.ok) {
+        msgEl.textContent = '✅ Price updated successfully!';
+        msgEl.className = 'msg success';
+      } else {
+        msgEl.textContent = '❌ ' + (data.error || 'Update failed');
+        msgEl.className = 'msg error';
+      }
+    } catch (err) {
+      msgEl.textContent = '❌ Could not connect to server';
+      msgEl.className = 'msg error';
+    }
+  }
+
+  loadCurrentPrices();
+</script>
+
+</body>
+</html>

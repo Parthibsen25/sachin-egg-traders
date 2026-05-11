@@ -538,8 +538,8 @@
       };
     }
 
-    // SAVE PRICES TO STORAGE
-    function savePrices() {
+    // SAVE PRICES TO STORAGE and try to persist to API
+    async function savePrices() {
       const prices = {
         big: { price: document.getElementById('bigPrice').value || '0' },
         medium: { price: document.getElementById('mediumPrice').value || '0' },
@@ -555,8 +555,52 @@
         return;
       }
 
+      // Save locally first (fallback)
       localStorage.setItem('eggPrices', JSON.stringify(prices));
-      showSuccess('✅ Prices saved successfully! Updates will appear on your website within 30 seconds.');
+
+      // Prepare API payloads (convert per-peti to per-egg and per-tray)
+      const mapTypes = [
+        { key: 'big', eggType: 'big' },
+        { key: 'medium', eggType: 'medium' },
+        { key: 'small', eggType: 'small' },
+        { key: 'desi', eggType: 'desi' },
+        { key: 'duck', eggType: 'duck' }
+      ];
+
+      const adminPassword = ADMIN_PASSWORD; // kept client-side for convenience
+
+      try {
+        const results = await Promise.all(mapTypes.map(async (m) => {
+          const peti = Number(prices[m.key].price);
+          const pricePerEgg = Number((peti / 210).toFixed(2));
+          const pricePerTray = Number((pricePerEgg * 30).toFixed(2));
+
+          const resp = await fetch(`/api/prices/${encodeURIComponent(m.eggType)}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password: adminPassword, pricePerEgg, pricePerTray })
+          });
+
+          if (!resp.ok) {
+            const err = await resp.json().catch(() => ({}));
+            return { ok: false, eggType: m.eggType, status: resp.status, error: err.error || 'Unknown' };
+          }
+          const data = await resp.json().catch(() => ({}));
+          return { ok: true, eggType: m.eggType, data };
+        }));
+
+        const failed = results.filter(r => !r.ok);
+        if (failed.length === 0) {
+          showSuccess('✅ Prices saved to server and local storage. Website will reflect changes shortly.');
+        } else {
+          console.warn('Some updates failed', failed);
+          showError('⚠️ Some updates failed to save to server. Data saved locally.');
+        }
+      } catch (e) {
+        console.error('API error', e);
+        showError('⚠️ Unable to reach server. Prices saved locally.');
+      }
+
       updatePreview();
     }
 

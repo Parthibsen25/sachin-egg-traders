@@ -1,7 +1,9 @@
-// Load prices from localStorage, optionally from a published Google Sheet (CSV), and update the price ticker
-// To enable Google Sheets syncing: publish your sheet to the web (CSV) and set SHEET_CSV_URL to that URL.
-// CSV export URL for your Google Sheet
-// Make sure the sheet is shared as "Anyone with the link can view" or published to the web.
+// Load prices from backend API, fallback to Google Sheet (CSV), then localStorage, and update the price ticker
+// API: set API_URL to your deployed backend (Vercel/Heroku). Default uses relative path to host: `/api/prices`.
+const API_URL = window.API_PRICES_URL || '/api/prices';
+
+// To enable Google Sheets syncing as a fallback: publish your sheet to the web (CSV) and set SHEET_CSV_URL to that URL.
+// CSV export URL for your Google Sheet (optional)
 const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/1bJoZamIATsUmGQSF8ZRCt0GmMDV9Ygy4KOfuHb9qzJs/export?format=csv&gid=0';
 
 function parseCsvToPrices(csvText) {
@@ -41,15 +43,44 @@ async function fetchSheetPrices() {
   }
 }
 
+async function fetchApiPrices() {
+  if (!API_URL) return null;
+  try {
+    const res = await fetch(API_URL, { cache: 'no-store' });
+    if (!res.ok) return null;
+    const data = await res.json();
+    if (!Array.isArray(data)) return null;
+
+    // Convert API format ({eggType, pricePerEgg, pricePerTray, updatedAt}) to local shape { big: {price}, ... }
+    const prices = { big: {}, medium: {}, small: {}, desi: {}, duck: {}, updateDate: '' };
+    data.forEach(p => {
+      const key = (p.eggType || '').toString().toLowerCase();
+      // compute per-peti (210 pieces) for display
+      const pricePerEgg = Number(p.pricePerEgg || 0);
+      const peti = Math.round(pricePerEgg * 210);
+      if (prices[key] !== undefined) prices[key].price = String(peti);
+      if (p.updatedAt) prices.updateDate = new Date(p.updatedAt).toLocaleString();
+    });
+    return prices;
+  } catch (e) {
+    console.warn('Failed to fetch API prices', e);
+    return null;
+  }
+}
+
 async function loadPriceTicker() {
-  // Try Google Sheet first (if configured)
-  const sheetPrices = await fetchSheetPrices();
-  let prices;
-  if (sheetPrices) {
-    prices = sheetPrices;
+  // Try backend API first, then Google Sheet, then localStorage
+  let prices = null;
+  const apiPrices = await fetchApiPrices();
+  if (apiPrices) {
+    prices = apiPrices;
   } else {
-    const stored = localStorage.getItem('eggPrices');
-    if (stored) prices = JSON.parse(stored);
+    const sheetPrices = await fetchSheetPrices();
+    if (sheetPrices) prices = sheetPrices;
+    else {
+      const stored = localStorage.getItem('eggPrices');
+      if (stored) prices = JSON.parse(stored);
+    }
   }
 
   if (!prices) {

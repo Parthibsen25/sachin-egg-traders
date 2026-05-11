@@ -2,9 +2,14 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const Price = require('./models/Price');
+const cors = require('cors');
 
 const app = express();
 app.use(express.json());
+app.use(cors());
+
+// mount prices router
+app.use('/api/prices', require('./routes/prices'));
 
 const uri = process.env.MONGODB_URI;
 if (!uri) {
@@ -16,47 +21,7 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connected to MongoDB'))
   .catch(err => { console.error('MongoDB connection error', err); process.exit(1); });
 
-// GET /api/prices - return all prices
-app.get('/api/prices', async (req, res) => {
-  try {
-    const docs = await Price.find({}, { _id: 0, __v: 0 }).lean();
-    res.json(docs);
-  } catch (e) {
-    console.error(e);
-    res.status(500).json({ error: 'Failed to fetch prices' });
-  }
-});
-
-// POST /api/prices - upsert one or many prices (body: object or array)
-app.post('/api/prices', async (req, res) => {
-  try {
-    const body = req.body;
-    // normalize input to support legacy format ({type,price}) and new format ({eggType,pricePerEgg,pricePerTray})
-    const upsertOne = async (p) => {
-      const eggType = p.eggType || p.type;
-      // pricePerEgg priority: explicit -> legacy per-peti price divided by 210
-      let pricePerEgg = (p.pricePerEgg !== undefined) ? Number(p.pricePerEgg) : (p.price !== undefined ? Number(p.price) / 210 : undefined);
-      let pricePerTray = (p.pricePerTray !== undefined) ? Number(p.pricePerTray) : (pricePerEgg ? Number((pricePerEgg * 30).toFixed(2)) : undefined);
-      if (!eggType || pricePerEgg === undefined || pricePerTray === undefined) return;
-      const updatedAt = p.updatedAt ? new Date(p.updatedAt) : new Date();
-      await Price.findOneAndUpdate(
-        { eggType },
-        { eggType, pricePerEgg, pricePerTray, updatedAt },
-        { upsert: true }
-      );
-    };
-
-    if (Array.isArray(body)) {
-      await Promise.all(body.map(p => upsertOne(p)));
-    } else {
-      await upsertOne(body);
-    }
-    res.json({ ok: true });
-  } catch (e) {
-    console.error(e);
-    res.status(500).json({ error: 'Failed to save prices' });
-  }
-});
+// Note: GET and PUT for /api/prices are handled by routes/prices.js
 
 // POST /api/seed - populate defaults
 app.post('/api/seed', async (req, res) => {

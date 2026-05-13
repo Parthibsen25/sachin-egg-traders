@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Admin – Sachin Egg Traders</title>
   <style>
-    body { font-family: sans-serif; background: #fff8ee; padding: 20px; max-width: 480px; margin: 0 auto; }
+    body { font-family: sans-serif; background: #fff8ee; padding: 20px; max-width: 520px; margin: 0 auto; }
     h1 { color: #E8920A; margin-bottom: 6px; }
     .subtitle { color: #888; font-size: 0.85rem; margin-bottom: 28px; }
     .card { background: #fff; border: 1.5px solid #EDE2CC; border-radius: 16px; padding: 24px; margin-bottom: 20px; }
@@ -26,58 +26,30 @@
 <h1>🥚 Admin Panel</h1>
 <p class="subtitle">Sachin Egg Traders – Purulia, West Bengal</p>
 
-<!-- Password -->
 <div class="password-box">
   <label>Admin Password</label>
   <input type="password" id="adminPassword" placeholder="Enter your password"/>
 </div>
 
-<!-- White Egg -->
-<div class="card">
-  <h2>🥚 White Egg Price</h2>
-  <label>Price per Egg (₹)</label>
-  <input type="number" id="white-egg" placeholder="e.g. 6.50" step="0.10"/>
-  <label>Price per Tray of 30 (₹)</label>
-  <input type="number" id="white-tray" placeholder="e.g. 195"/>
-  <button onclick="updatePrice('White', 'white')">Update White Egg Price</button>
-  <div class="msg" id="msg-white"></div>
-</div>
-
-<!-- Desi Egg -->
-<div class="card">
-  <h2>🍳 Desi Egg Price</h2>
-  <label>Price per Egg (₹)</label>
-  <input type="number" id="desi-egg" placeholder="e.g. 8.00" step="0.10"/>
-  <label>Price per Tray of 30 (₹)</label>
-  <input type="number" id="desi-tray" placeholder="e.g. 240"/>
-  <button onclick="updatePrice('Desi', 'desi')">Update Desi Egg Price</button>
-  <div class="msg" id="msg-desi"></div>
-</div>
-
-<!-- Brown Egg -->
-<div class="card">
-  <h2>🟤 Brown Egg Price</h2>
-  <label>Price per Egg (₹)</label>
-  <input type="number" id="brown-egg" placeholder="e.g. 7.50" step="0.10"/>
-  <label>Price per Tray of 30 (₹)</label>
-  <input type="number" id="brown-tray" placeholder="e.g. 225"/>
-  <button onclick="updatePrice('Brown', 'brown')">Update Brown Egg Price</button>
-  <div class="msg" id="msg-brown"></div>
-</div>
+<div class="card"><h2>🥚 Big Egg Price</h2><label>Price per Egg (₹)</label><input type="number" id="big-egg" placeholder="e.g. 5.24" step="0.01"/><label>Price per Tray of 30 (₹)</label><input type="number" id="big-tray" placeholder="e.g. 157"/><button onclick="updatePrice('big', 'Big')">Update Big Egg Price</button><div class="msg" id="msg-big"></div></div>
+<div class="card"><h2>🥚 Medium Egg Price</h2><label>Price per Egg (₹)</label><input type="number" id="medium-egg" placeholder="e.g. 4.76" step="0.01"/><label>Price per Tray of 30 (₹)</label><input type="number" id="medium-tray" placeholder="e.g. 143"/><button onclick="updatePrice('medium', 'Medium')">Update Medium Egg Price</button><div class="msg" id="msg-medium"></div></div>
+<div class="card"><h2>🥚 Small Egg Price</h2><label>Price per Egg (₹)</label><input type="number" id="small-egg" placeholder="e.g. 4.29" step="0.01"/><label>Price per Tray of 30 (₹)</label><input type="number" id="small-tray" placeholder="e.g. 129"/><button onclick="updatePrice('small', 'Small')">Update Small Egg Price</button><div class="msg" id="msg-small"></div></div>
+<div class="card"><h2>🍳 Desi Egg Price</h2><label>Price per Egg (₹)</label><input type="number" id="desi-egg" placeholder="e.g. 5.71" step="0.01"/><label>Price per Tray of 30 (₹)</label><input type="number" id="desi-tray" placeholder="e.g. 171"/><button onclick="updatePrice('desi', 'Desi')">Update Desi Egg Price</button><div class="msg" id="msg-desi"></div></div>
+<div class="card"><h2>🟤 Duck Egg Price</h2><label>Price per Egg (₹)</label><input type="number" id="duck-egg" placeholder="e.g. 7.14" step="0.01"/><label>Price per Tray of 30 (₹)</label><input type="number" id="duck-tray" placeholder="e.g. 214"/><button onclick="updatePrice('duck', 'Duck')">Update Duck Egg Price</button><div class="msg" id="msg-duck"></div></div>
 
 <script>
-  const API_URL = '/api/prices';
+  const API_URL = 'https://server-seven-orpin-87.vercel.app/api/prices';
 
-  // Load current prices into the form
   async function loadCurrentPrices() {
     try {
-      const res = await fetch(API_URL);
+      const res = await fetch(API_URL, { cache: 'no-store' });
       const prices = await res.json();
+      if (!Array.isArray(prices)) return;
       prices.forEach(p => {
-        const key = p.eggType.toLowerCase();
+        const key = (p.eggType || '').toLowerCase();
         const eggEl = document.getElementById(key + '-egg');
         const trayEl = document.getElementById(key + '-tray');
-        if (eggEl)  eggEl.value  = p.pricePerEgg;
+        if (eggEl) eggEl.value = p.pricePerEgg;
         if (trayEl) trayEl.value = p.pricePerTray;
       });
     } catch (err) {
@@ -85,25 +57,24 @@
     }
   }
 
-  // Update price
-  async function updatePrice(eggType, key) {
-    const password    = document.getElementById('adminPassword').value;
+  async function updatePrice(key, label) {
+    const password = document.getElementById('adminPassword').value;
     const pricePerEgg = parseFloat(document.getElementById(key + '-egg').value);
-    const pricePerTray= parseFloat(document.getElementById(key + '-tray').value);
-    const msgEl       = document.getElementById('msg-' + key);
+    const pricePerTray = parseFloat(document.getElementById(key + '-tray').value);
+    const msgEl = document.getElementById('msg-' + key);
 
     if (!password) { msgEl.textContent = '❌ Enter password first!'; msgEl.className = 'msg error'; return; }
-    if (!pricePerEgg || !pricePerTray) { msgEl.textContent = '❌ Enter both prices!'; msgEl.className = 'msg error'; return; }
+    if (Number.isNaN(pricePerEgg) || Number.isNaN(pricePerTray)) { msgEl.textContent = '❌ Enter both prices!'; msgEl.className = 'msg error'; return; }
 
     try {
-      const res = await fetch(`${API_URL}/${eggType}`, {
+      const res = await fetch(`${API_URL}/${encodeURIComponent(key)}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password, pricePerEgg, pricePerTray })
       });
       const data = await res.json();
       if (res.ok) {
-        msgEl.textContent = '✅ Price updated successfully!';
+        msgEl.textContent = `✅ ${label} price updated successfully!`;
         msgEl.className = 'msg success';
       } else {
         msgEl.textContent = '❌ ' + (data.error || 'Update failed');

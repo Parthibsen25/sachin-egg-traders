@@ -457,6 +457,8 @@
   </div>
 
   <script>
+    const API_URL = 'https://server-seven-orpin-87.vercel.app/api/prices';
+
     // PASSWORD SETTINGS - Change this to your desired password
     const ADMIN_PASSWORD = "sachin123";
 
@@ -575,7 +577,7 @@
           const pricePerEgg = Number((peti / 210).toFixed(2));
           const pricePerTray = Number((pricePerEgg * 30).toFixed(2));
 
-          const resp = await fetch(`/api/prices/${encodeURIComponent(m.eggType)}`, {
+          const resp = await fetch(`${API_URL}/${encodeURIComponent(m.eggType)}`, {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ password: adminPassword, pricePerEgg, pricePerTray })

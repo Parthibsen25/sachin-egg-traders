@@ -1,6 +1,7 @@
 // Load prices from backend API, fallback to Google Sheet (CSV), then localStorage, and update the price ticker
-// API: set API_URL to your deployed backend (Vercel/Heroku). Default uses relative path to host: `/api/prices`.
-const API_URL = window.API_PRICES_URL || '/api/prices';
+// Update this once if your deployed API domain changes.
+const DEFAULT_API_URL = 'https://server-seven-orpin-87.vercel.app/api/prices';
+const API_URL = window.API_PRICES_URL || DEFAULT_API_URL;
 
 // To enable Google Sheets syncing as a fallback: publish your sheet to the web (CSV) and set SHEET_CSV_URL to that URL.
 // CSV export URL for your Google Sheet (optional)

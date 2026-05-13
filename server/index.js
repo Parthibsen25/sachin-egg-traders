@@ -1,5 +1,11 @@
 const path = require('path');
-require('dotenv').config({ path: path.resolve(__dirname, '../.env') });
+
+// Only load .env in local development; Vercel injects env vars directly
+const fs = require('fs');
+const envPath = path.resolve(__dirname, '../.env');
+if (fs.existsSync(envPath)) {
+  require('dotenv').config({ path: envPath });
+}
 
 const express = require('express');
 const mongoose = require('mongoose');
@@ -12,6 +18,8 @@ app.use(cors());
 app.use('/api/prices', require('./routes/prices'));
 
 const mongoUri = process.env.MONGO_URI || process.env.MONGODB_URI;
+console.log('Environment check: MONGO_URI exists?', !!process.env.MONGO_URI);
+console.log('Environment check: MONGODB_URI exists?', !!process.env.MONGODB_URI);
 if (!mongoUri) {
   console.error('Missing MONGO_URI or MONGODB_URI in environment.');
   process.exit(1);

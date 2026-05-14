@@ -22,7 +22,8 @@ console.log('Environment check: MONGO_URI exists?', !!process.env.MONGO_URI);
 console.log('Environment check: MONGODB_URI exists?', !!process.env.MONGODB_URI);
 if (!mongoUri) {
   console.error('Missing MONGO_URI or MONGODB_URI in environment.');
-  process.exit(1);
+  // In local development we should fail fast. In serverless (Vercel) return and let logs surface.
+  if (!process.env.VERCEL) process.exit(1);
 }
 
 async function seedDefaultsIfEmpty() {
@@ -43,11 +44,18 @@ mongoose.connect(mongoUri)
     console.log('MongoDB connected ✅');
     await seedDefaultsIfEmpty();
 
-    app.listen(port, () => {
-      console.log(`Server running on port ${port} ✅`);
-    });
+    // On Vercel (serverless) we should NOT call app.listen(); instead export the app.
+    if (!process.env.VERCEL) {
+      app.listen(port, () => {
+        console.log(`Server running on port ${port} ✅`);
+      });
+    } else {
+      console.log('Running on Vercel serverless - exporting app');
+    }
   })
   .catch(err => {
     console.error('Error:', err);
-    process.exit(1);
+    if (!process.env.VERCEL) process.exit(1);
   });
+
+module.exports = app;

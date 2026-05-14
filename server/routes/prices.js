@@ -1,10 +1,19 @@
 const express = require('express');
 const router = express.Router();
 const Price = require('../models/Price');
+const mongoose = require('mongoose');
+
+async function ensureDb() {
+  if (mongoose.connection.readyState === 1) return;
+  const mongoUri = process.env.MONGO_URI || process.env.MONGODB_URI;
+  if (!mongoUri) throw new Error('Missing MONGO_URI');
+  await mongoose.connect(mongoUri);
+}
 
 // GET all prices (customers see this)
 router.get('/', async (req, res) => {
   try {
+    await ensureDb();
     const prices = await Price.find();
     res.json(prices);
   } catch (err) {
@@ -21,6 +30,7 @@ router.put('/:eggType', async (req, res) => {
   }
 
   try {
+    await ensureDb();
     const price = await Price.findOneAndUpdate(
       { eggType: req.params.eggType },
       { pricePerEgg, pricePerTray, updatedAt: Date.now() },
